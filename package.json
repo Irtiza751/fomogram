@@ -6,6 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo test",
+    "web:dev": "turbo run dev --filter=web",
+    "api:dev": "turbo run dev --filter=api",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
