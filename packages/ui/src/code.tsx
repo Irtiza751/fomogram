@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+
 export function Code({
   children,
   className,
@@ -6,7 +8,7 @@ export function Code({
   className?: string;
 }): JSX.Element {
   return (
-    <div className={`bg-purple-700 text-white`}>
+    <div className={twMerge("border rounded-lg p-2", className)}>
       <code>{children}</code>
     </div>
   );
