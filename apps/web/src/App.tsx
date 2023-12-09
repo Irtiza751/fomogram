@@ -1,10 +1,13 @@
-import { Card } from "ui";
+import { Card, Code } from "ui";
 
 function App() {
   return (
     <>
       <h1>Hello, world</h1>
-      <Card>Hi, there!</Card>
+      <Card title="Hell, world" href="#">
+        Hi, there! guys hope you're doing great!!!
+      </Card>
+      <Code>const hello = "Hello, world"</Code>
     </>
   );
 }
