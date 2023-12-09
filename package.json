@@ -9,6 +9,7 @@
     "ui:dev": "turbo run dev --filter=ui",
     "web:dev": "turbo run dev --filter=web",
     "api:dev": "turbo run dev --filter=api",
+    "web-ui": "turbo run dev --filter=ui --filter=web",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
