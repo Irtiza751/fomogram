@@ -1,5 +1,4 @@
 import { Card, Code } from "ui";
-import "./index.css";
 
 function App() {
   return (
