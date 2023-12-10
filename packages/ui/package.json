@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@fomogram/ui",
   "version": "0.0.0",
   "private": true,
   "exports": "./src/index.tsx",
@@ -10,9 +10,9 @@
     "build": "tailwindcss -i ./src/styles.css -o dist/index.css"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "tailwind-config": "workspace:*",
+    "@fomogram/eslint-config": "workspace:*",
+    "@fomogram/typescript-config": "workspace:*",
+    "@fomogram/tailwind-config": "workspace:*",
     "@turbo/gen": "^1.10.12",
     "@types/eslint": "^8.44.7",
     "@types/node": "^20.5.2",

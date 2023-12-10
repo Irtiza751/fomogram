@@ -8,10 +8,10 @@ importers:
 
   .:
     devDependencies:
-      '@repo/eslint-config':
+      '@fomogram/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
-      '@repo/typescript-config':
+      '@fomogram/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
       prettier:
@@ -105,16 +105,19 @@ importers:
 
   apps/web:
     dependencies:
+      '@fomogram/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      ui:
-        specifier: workspace:*
-        version: link:../../packages/ui
     devDependencies:
+      '@fomogram/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
       '@types/react':
         specifier: ^18.2.37
         version: 18.2.41
@@ -148,9 +151,6 @@ importers:
       postcss:
         specifier: ^8.4.32
         version: 8.4.32
-      tailwind-config:
-        specifier: workspace:*
-        version: link:../../packages/tailwind-config
       tailwindcss:
         specifier: ^3.3.5
         version: 3.3.5
@@ -211,10 +211,13 @@ importers:
         specifier: ^3.3.5
         version: 3.3.5
     devDependencies:
-      '@repo/eslint-config':
+      '@fomogram/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/typescript-config':
+      '@fomogram/tailwind-config':
+        specifier: workspace:*
+        version: link:../tailwind-config
+      '@fomogram/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@turbo/gen':
@@ -238,9 +241,6 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
-      tailwind-config:
-        specifier: workspace:*
-        version: link:../tailwind-config
       typescript:
         specifier: ^5.2.2
         version: 5.2.2

@@ -1,4 +1,4 @@
-import twSharedConfig from "tailwind-config";
+import twSharedConfig from "@fomogram/tailwind-config";
 
 /** @type {import('tailwindcss').Config} */
 export default {

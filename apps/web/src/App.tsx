@@ -1,4 +1,4 @@
-import { Button, Card, Code } from "ui";
+import { Button, Card, Code } from "@fomogram/ui";
 
 function App() {
   return (
