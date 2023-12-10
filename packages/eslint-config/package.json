@@ -1,5 +1,6 @@
 {
   "name": "@fomogram/eslint-config",
+  "author": "Muhammad Irtiza",
   "version": "0.0.0",
   "private": true,
   "files": [
