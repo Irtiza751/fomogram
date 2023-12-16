@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "Muhammad Irtiza",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,7 +12,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@fomogram/ui": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
@@ -19,10 +21,16 @@
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8.53.0",
+    "eslint-config": "*",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
+    "typescript-config": "*",
+    "@fomogram/tailwind-config": "workspace:*",
     "vite": "^5.0.0"
   }
 }

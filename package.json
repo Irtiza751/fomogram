@@ -6,11 +6,15 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo test",
+    "ui:dev": "turbo run dev --filter=ui",
+    "web:dev": "turbo run dev --filter=web",
+    "backend:dev": "turbo run dev --filter=backend",
+    "web-ui": "turbo run dev --filter=ui --filter=web",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@fomogram/eslint-config": "workspace:*",
+    "@fomogram/typescript-config": "workspace:*",
     "prettier": "^3.1.0",
     "turbo": "latest"
   },
