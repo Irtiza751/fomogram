@@ -1,16 +1,35 @@
-import { Button, Card, Code } from "@fomogram/ui";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { NotFound } from "./pages/NotFound";
+import { Profile } from "./pages/Profile";
+import { Login } from "./pages/auth/Login";
+import { Register } from "./pages/auth/Register";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
 
 function App() {
-  return (
-    <div className="container">
-      <h1 className="text-lg font-bold">Hello, world</h1>
-      <Card title="Hell, world" href="/">
-        Hi, there! guys hope you're doing great!!!
-      </Card>
-      <Code>const hello = "Hello, world"</Code>
-      <Button>Press Me!</Button>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
