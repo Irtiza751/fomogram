@@ -9,14 +9,14 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
     console.error('exception: ', exception.code);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const message = exception.message.replace(/\n/g, '');
+    const message = this._extractField(exception.message.replace(/\n/g, ''));
 
     switch (exception.code) {
       case 'P2002':
         const status = HttpStatus.CONFLICT;
         response.status(status).json({
           statusCode: status,
-          message: extractField(message),
+          message: message,
         });
         break;
       default:
@@ -25,21 +25,21 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         break;
     }
   }
-}
 
-function extractField(errorMessage: string) {
-  // Define the regular expression pattern to match the field name
-  const pattern = /(`[a-zA-Z_]+`)/;
+  _extractField(errorMessage: string) {
+    // Define the regular expression pattern to match the field name
+    const pattern = /(`[a-zA-Z_]+`)/;
 
-  // Use the RegExp exec method to find the match in the error message
-  const match = pattern.exec(errorMessage);
+    // Use the RegExp exec method to find the match in the error message
+    const match = pattern.exec(errorMessage);
 
-  // Check if a match is found
-  if (match && match[1]) {
-    // Return the matched field
-    return match[1];
-  } else {
-    // Return null if no match is found
-    return null;
+    // Check if a match is found
+    if (match && match[1]) {
+      // Return the matched field
+      return match[1];
+    } else {
+      // Return null if no match is found
+      return null;
+    }
   }
 }
