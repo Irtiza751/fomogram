@@ -4,6 +4,7 @@ import { NotFound } from "./pages/NotFound";
 import { Profile } from "./pages/Profile";
 import { Login } from "./pages/auth/Login";
 import { Register } from "./pages/auth/Register";
+import { Layout } from "./components/Layout";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Layout>
+      <RouterProvider router={router} />
+    </Layout>
+  );
 }
 
 export default App;
