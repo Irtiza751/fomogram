@@ -1,24 +1,28 @@
+import { Link } from "react-router-dom";
+
 export function Navbar() {
   return (
     <nav className="border-b py-3">
       <div className="container flex justify-between items-center">
-        <h4 className="text-2xl font-bold">Fomogram</h4>
-        <ul className="flex gap-3">
+        <Link to={"/"}>
+          <img src="public/logo.svg" alt="" />
+        </Link>
+        <ul className="flex gap-3 text-sm">
           <li>
-            <a
+            <Link
               className="inline-block hover:bg-slate-100 px-3 py-1.5 rounded"
-              href="#"
+              to="/login"
             >
               Login
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              className="inline-block bg-indigo-500 text-white px-3 py-1.5 rounded"
-              href="#"
+            <Link
+              className="inline-block bg-indigo-700 text-white px-3 py-1.5 rounded"
+              to="/register"
             >
               Register
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
