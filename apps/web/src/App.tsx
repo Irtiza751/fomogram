@@ -1,15 +1,23 @@
-import { Button, Card, Code } from "@fomogram/ui";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { NotFound } from "./pages/NotFound";
+import { Profile } from "./pages/Profile";
+import { Login } from "./pages/auth/Login";
+import { Register } from "./pages/auth/Register";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   return (
-    <div className="container">
-      <h1 className="text-lg font-bold">Hello, world</h1>
-      <Card title="Hell, world" href="/">
-        Hi, there! guys hope you're doing great!!!
-      </Card>
-      <Code>const hello = "Hello, world"</Code>
-      <Button>Press Me!</Button>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
