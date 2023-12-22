@@ -4,4 +4,9 @@ import twSharedConfig from "@fomogram/tailwind-config";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   presets: [twSharedConfig],
+  theme: {
+    fontFamily: {
+      sans: ["Inter"],
+    },
+  },
 };
