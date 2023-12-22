@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@fomogram/eslint-config": "workspace:*",
-    "@fomogram/typescript-config": "workspace:*",
     "@fomogram/tailwind-config": "workspace:*",
+    "@fomogram/typescript-config": "workspace:*",
     "@turbo/gen": "^1.10.12",
     "@types/eslint": "^8.44.7",
     "@types/node": "^20.5.2",
@@ -24,6 +24,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
     "tailwind-merge": "^2.1.0",
