@@ -1,3 +1,9 @@
+import { RootLayout } from "../components/RootLayout";
+
 export function Home() {
-  return <div>Home</div>;
+  return (
+    <RootLayout>
+      <div>Home</div>
+    </RootLayout>
+  );
 }
