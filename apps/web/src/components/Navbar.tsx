@@ -32,8 +32,8 @@ type NavbarProps = {
 export function Navbar({ isLogedin = false }: NavbarProps) {
   return (
     <nav
-      className={`border-b fixed w-full z-10 backdrop-blur-md ${
-        !isLogedin ? "py-3" : ""
+      className={`fixed w-full z-10 backdrop-blur-md bg-white/75 ${
+        !isLogedin ? "border-b py-4" : ""
       }`}
     >
       <div
@@ -47,23 +47,22 @@ export function Navbar({ isLogedin = false }: NavbarProps) {
 
         {isLogedin ? (
           <>
-            <ul className="flex gap-4 text-stone-800/50 -ml-20">
-              {/* <li className="px-6 py-5 border-b-2 border-indigo-600 text-indigo-600">
-                <Home />
-              </li> */}
+            <ul className="flex gap-4 text-stone-800/50 -ml-24">
               {links.map((link) => (
-                <NavLink
-                  to={link.link}
-                  className={({ isActive }) =>
-                    `border-b-2 ${
-                      isActive
-                        ? "border-indigo-600 text-indigo-600"
-                        : "border-transparent hover:border-indigo-600"
-                    }`
-                  }
-                >
-                  <li className="px-6 py-5">{link.icon}</li>
-                </NavLink>
+                <li>
+                  <NavLink
+                    to={link.link}
+                    className={({ isActive }) =>
+                      `block border-b-2 px-6 py-5 ${
+                        isActive
+                          ? "border-indigo-600 text-indigo-600"
+                          : "border-transparent hover:border-indigo-600"
+                      }`
+                    }
+                  >
+                    {link.icon}
+                  </NavLink>
+                </li>
               ))}
             </ul>
             <button className="text-stone-800/50">
