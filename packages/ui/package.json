@@ -2,7 +2,7 @@
   "name": "@fomogram/ui",
   "version": "0.0.0",
   "private": true,
-  "exports": "./src/index.tsx",
+  "exports": {".": "./src/index.tsx", "./icons": "./src/icons/index.ts"},
   "author": "Muhammad Irtiza",
   "scripts": {
     "lint": "eslint . --max-warnings 0",

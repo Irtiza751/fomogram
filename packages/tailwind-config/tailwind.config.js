@@ -7,6 +7,9 @@ export default {
       container: {
         center: true,
         padding: "5rem",
+        fontFamily: {
+          sans: ["Inter", ...defaultTheme.fontFamily.sans],
+        },
       },
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
