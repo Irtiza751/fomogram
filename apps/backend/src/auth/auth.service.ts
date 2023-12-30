@@ -40,7 +40,10 @@ export class AuthService {
     if (isValidPass) {
       const payload = { id: user.id };
       const token = this.jwt.sign(payload);
-      return { token };
+      // const refreshToken = this.jwt.sign(payload, {
+      //   secret: process.env.REFRESH_SECRET,
+      // });
+      return token;
     }
     return null;
   }

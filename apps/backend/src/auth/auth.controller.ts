@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { LoginDto } from './dtos/login-dto';
 import { AuthGuard } from './auth.guard';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -14,7 +15,8 @@ export class AuthController {
   }
 
   @Post('/login')
-  login(@Body() body: LoginDto) {
+  login(@Req() req: Request, @Body() body: LoginDto) {
+    req.session['token'] = this._auth.validate(body);
     return this._auth.validate(body);
   }
 
