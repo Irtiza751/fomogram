@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { RedisService } from 'src/redis/redis.service';
 
-type User = {
+export type User = {
   username: string;
   email: string;
   password: string;
@@ -11,7 +13,13 @@ type User = {
 
 @Injectable()
 export class AuthService {
-  constructor(private _prisma: PrismaService) {}
+  constructor(
+    private readonly _prisma: PrismaService,
+    private readonly jwt: JwtService,
+    private readonly redis: RedisService,
+  ) {}
+
+  client = this.redis.getClient();
 
   async create(user: User) {
     const saltRound = 10;
@@ -26,5 +34,22 @@ export class AuthService {
     return this._prisma.user.create({
       data: user,
     });
+  }
+
+  async validate(credentials: Pick<User, 'email' | 'password'>) {
+    const user = await this._prisma.user.findUnique({
+      where: { email: credentials.email },
+    });
+    const isValidPass = compare(credentials.password, user.password);
+    if (isValidPass) {
+      const payload = { id: user.id };
+      const token = this.jwt.sign(payload);
+      const refreshToken = this.jwt.sign(payload, {
+        secret: process.env.REFRESH_SECRET,
+      });
+      const res = await this.client.set(`${user.id}`, refreshToken);
+      return { token, res };
+    }
+    return null;
   }
 }
