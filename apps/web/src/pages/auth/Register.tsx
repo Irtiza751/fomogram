@@ -11,7 +11,7 @@ export function Register() {
           <Input label="Email" type="email" />
           <Input label="Username" />
           <Input label="Password" type="password" />
-          <Button>Register</Button>
+          <Button className="w-full">Register</Button>
           <p className="text-center">
             Already have an account?{" "}
             <Link className="text-indigo-700" to="/login">

@@ -1,5 +1,7 @@
+import { Button } from "@fomogram/ui";
+
 function App() {
-  return <h1>Hello, Playground</h1>;
+  return <Button>Hello</Button>;
 }
 
 export default App;

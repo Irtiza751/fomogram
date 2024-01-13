@@ -10,7 +10,7 @@ export function Login() {
           <h2 className="text-2xl font-bold mb-5">Login in to your account</h2>
           <Input label="Username or Email" />
           <Input label="Password" type="password" />
-          <Button>Login</Button>
+          <Button className="w-full">Login</Button>
           <p className="text-center">
             Don't have an account?{" "}
             <Link className="text-indigo-700" to="/register">
