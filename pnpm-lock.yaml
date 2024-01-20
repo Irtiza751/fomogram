@@ -135,6 +135,9 @@ importers:
 
   apps/client:
     dependencies:
+      '@fomogram/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       next:
         specifier: 14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -145,6 +148,9 @@ importers:
         specifier: ^18
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@fomogram/tailwind-config':
+        specifier: workspace:*
+        version: link:../../packages/tailwind-config
       '@types/node':
         specifier: ^20
         version: 20.5.2
