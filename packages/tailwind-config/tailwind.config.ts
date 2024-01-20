@@ -1,7 +1,6 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 
-/** @type {import('tailwindcss').Config} */
-export default {
+const config = {
   theme: {
     extend: {
       container: {
@@ -27,3 +26,5 @@ export default {
   },
   plugins: [],
 };
+
+export default config;
