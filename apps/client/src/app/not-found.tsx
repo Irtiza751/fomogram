@@ -22,11 +22,6 @@ export default function NotFound() {
           </Link>
         </div>
       </main>
-      <footer className="text-center mt-12 py-8 absolute bottom-0 w-full">
-        <p className="text-gray-600">
-          &copy; All Rights Reserved. {new Date().getFullYear()}.
-        </p>
-      </footer>
     </>
   );
 }
