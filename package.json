@@ -8,6 +8,7 @@
     "test": "turbo test",
     "ui:dev": "turbo run dev --filter=ui",
     "web:dev": "turbo run dev --filter=web",
+    "client:dev": "turbo run dev --filter=client",
     "backend:dev": "turbo run dev --filter=backend",
     "web-ui": "turbo run dev --filter=ui --filter=web",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
