@@ -2,7 +2,7 @@
   "name": "@fomogram/tailwind-config",
   "version": "1.0.0",
   "description": "",
-  "main": "tailwind.config.js",
+  "main": "tailwind.config.ts",
   "scripts": {
   },
   "keywords": [],
