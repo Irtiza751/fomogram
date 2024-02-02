@@ -11,10 +11,12 @@ export type User = {
   image?: string;
 };
 
+export type Credentials = Pick<User, 'email' | 'password'>;
+
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly _prisma: PrismaService,
+    private readonly prisma: PrismaService,
     private readonly jwt: JwtService,
     private readonly redis: RedisService,
   ) {}
@@ -31,13 +33,13 @@ export class AuthService {
     const image = `https://ui-avatars.com/api/?name=${user.username}`;
     // assigning that to the user object
     user.image = image;
-    return this._prisma.user.create({
+    return this.prisma.user.create({
       data: user,
     });
   }
 
-  async validate(credentials: Pick<User, 'email' | 'password'>) {
-    const user = await this._prisma.user.findUnique({
+  async validate(credentials: Credentials) {
+    const user = await this.prisma.user.findUnique({
       where: { email: credentials.email },
     });
     const isValidPass = compare(credentials.password, user.password);
