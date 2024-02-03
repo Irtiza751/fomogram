@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  Request,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { LoginDto } from './dtos/login-dto';
@@ -21,9 +14,8 @@ export class AuthController {
   }
 
   @Post('/login')
-  async login(@Body() body: LoginDto, @Request() req: any) {
+  async login(@Body() body: LoginDto) {
     const response = await this._auth.validate(body);
-    req.cookies.token = response.token;
     return response;
   }
 
