@@ -3,6 +3,7 @@ import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import Link from "next/link";
+import { fomo } from "@client/api/fomo";
 
 export default function Login() {
   const loginFormSchema = object({
@@ -10,11 +11,10 @@ export default function Login() {
     password: string().required("Password is required").min(6),
   });
 
-  const onSubmit = (values: InferType<typeof loginFormSchema>) => {
-    console.log(values);
-    /**
-     * @TODO call the api from here.
-     */
+  const onSubmit = async (values: InferType<typeof loginFormSchema>) => {
+    console.log("submitting...", values);
+    const res = await fomo.post("/auth/login", values);
+    console.log(res);
   };
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({

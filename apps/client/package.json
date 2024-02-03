@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fomogram/ui": "workspace:*",
+    "axios": "^1.6.7",
     "formik": "^2.4.5",
     "next": "14.1.0",
     "react": "^18",
