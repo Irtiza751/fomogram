@@ -13,8 +13,8 @@ export default function Login() {
 
   const onSubmit = async (values: InferType<typeof loginFormSchema>) => {
     console.log("submitting...", values);
-    const res = await fomo.post("/auth/login", values);
-    console.log(res);
+    const { data } = await fomo.post("/auth/login", values);
+    console.log("login", data);
   };
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({
