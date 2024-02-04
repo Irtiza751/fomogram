@@ -1,11 +1,14 @@
 "use client";
+import Link from "next/link";
 import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
-import Link from "next/link";
 import { fomo } from "@client/api/fomo";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
+
   const loginFormSchema = object({
     email: string().email("Invalid email").required("Email is required"),
     password: string().required("Password is required").min(6),
@@ -13,8 +16,14 @@ export default function Login() {
 
   const onSubmit = async (values: InferType<typeof loginFormSchema>) => {
     console.log("submitting...", values);
-    const { data } = await fomo.post("/auth/login", values);
-    console.log("login", data);
+    try {
+      const { data } = await fomo.post("/auth/login", values);
+      console.log("login", data);
+      localStorage.setItem("token", data.token);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({

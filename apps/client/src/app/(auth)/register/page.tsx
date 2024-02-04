@@ -1,11 +1,14 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { fomo } from "@client/api/fomo";
 
 export default function Register() {
+  const router = useRouter();
+
   const registerSchema = object({
     email: string().email("Invalid email").required("Email is required"),
     username: string().required("Username is required"),
@@ -14,8 +17,13 @@ export default function Register() {
 
   const onSubmit = async (values: InferType<typeof registerSchema>) => {
     console.log(values);
-    const { data } = await fomo.post("/auth/login", values);
-    console.log("register", data);
+    try {
+      const { data } = await fomo.post("/auth/register", values);
+      console.log("register", data);
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { values, errors, touched, handleChange, handleSubmit } = useFormik({
@@ -36,16 +44,6 @@ export default function Register() {
       >
         <h2 className="text-2xl font-bold mb-5">Register your account</h2>
         <Input
-          value={values.email}
-          onChange={handleChange}
-          name="email"
-          label="Email"
-          type="email"
-        />
-        {touched.email && errors.email ? (
-          <small className="text-red-700">{errors.email}</small>
-        ) : null}
-        <Input
           value={values.username}
           onChange={handleChange}
           name="username"
@@ -54,6 +52,16 @@ export default function Register() {
         />
         {touched.username && errors.username ? (
           <small className="text-red-700">{errors.username}</small>
+        ) : null}
+        <Input
+          value={values.email}
+          onChange={handleChange}
+          name="email"
+          label="Email"
+          type="email"
+        />
+        {touched.email && errors.email ? (
+          <small className="text-red-700">{errors.email}</small>
         ) : null}
         <Input
           value={values.password}
