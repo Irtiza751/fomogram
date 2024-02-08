@@ -5,14 +5,16 @@ import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { fomo } from "@client/api/fomo";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@client/hooks/useAuth";
+
+const loginFormSchema = object({
+  email: string().email("Invalid email").required("Email is required"),
+  password: string().required("Password is required").min(6),
+});
 
 export default function Login() {
+  useAuth();
   const router = useRouter();
-
-  const loginFormSchema = object({
-    email: string().email("Invalid email").required("Email is required"),
-    password: string().required("Password is required").min(6),
-  });
 
   const onSubmit = async (values: InferType<typeof loginFormSchema>) => {
     console.log("submitting...", values);

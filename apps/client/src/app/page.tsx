@@ -1,9 +1,14 @@
+"use client";
+
 import Navbar from "@client/components/Navbar";
 import { Post } from "@client/components/Post";
+import { useAuth } from "@client/hooks/useAuth";
 import { Button } from "@fomogram/ui";
 import Image from "next/image";
 
 export default function Home() {
+  useAuth();
+
   return (
     <>
       <Navbar />

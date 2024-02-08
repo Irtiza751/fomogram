@@ -5,15 +5,17 @@ import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { fomo } from "@client/api/fomo";
+import { useAuth } from "@client/hooks/useAuth";
+
+const registerSchema = object({
+  email: string().email("Invalid email").required("Email is required"),
+  username: string().required("Username is required"),
+  password: string().min(6).required("Password is required"),
+});
 
 export default function Register() {
+  useAuth();
   const router = useRouter();
-
-  const registerSchema = object({
-    email: string().email("Invalid email").required("Email is required"),
-    username: string().required("Username is required"),
-    password: string().min(6).required("Password is required"),
-  });
 
   const onSubmit = async (values: InferType<typeof registerSchema>) => {
     console.log(values);
