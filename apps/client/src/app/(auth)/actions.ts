@@ -19,3 +19,7 @@ export async function loginAction(payload: Credentials): Promise<string> {
     return error;
   }
 }
+
+export async function isAuthenticated() {
+  return !!cookies().get("_token")?.value;
+}
