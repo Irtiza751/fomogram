@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
-import { fomo } from "@client/api/fomo";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@client/hooks/useAuth";
+import { loginAction } from "../actions";
+
+export type Credentials = InferType<typeof loginFormSchema>;
 
 const loginFormSchema = object({
   email: string().email("Invalid email").required("Email is required"),
@@ -13,18 +14,15 @@ const loginFormSchema = object({
 });
 
 export default function Login() {
-  useAuth();
   const router = useRouter();
 
-  const onSubmit = async (values: InferType<typeof loginFormSchema>) => {
+  const onSubmit = async (values: Credentials) => {
     console.log("submitting...", values);
-    try {
-      const { data } = await fomo.post("/auth/login", values);
-      console.log("login", data);
-      localStorage.setItem("token", data.token);
+    const res = await loginAction(values);
+    if (res == "ok") {
       router.push("/");
-    } catch (error) {
-      console.log(error);
+    } else {
+      console.log("err", res);
     }
   };
 
