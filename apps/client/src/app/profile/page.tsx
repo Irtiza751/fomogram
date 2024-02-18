@@ -41,7 +41,9 @@ export default function Profile() {
           Culpa quaerat non facere? Pariatur, minima facilis.
         </p>
         <ProfileGroup followers={followers} />
-        <Button className="w-full">Edit Profile</Button>
+        <Button variant="outline" className="w-full">
+          Edit Profile
+        </Button>
 
         <div className="tab-wrapper">
           <nav className="relative z-0 flex" role="tablist">
