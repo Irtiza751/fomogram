@@ -9,7 +9,7 @@ const variants = cva(
         primary:
           "bg-indigo-700 leading-6 text-white shadow-sm hover:bg-indigo-600",
         outline:
-          "border text-black bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-gray-300 text-black bg-background hover:bg-accent hover:text-accent-foreground",
       },
     },
     defaultVariants: {
