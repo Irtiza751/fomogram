@@ -1,16 +1,35 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+const variants = cva(
+  "flex justify-center items-center rounded-md px-4 py-1.5 text-sm font-semibold",
+  {
+    variants: {
+      variant: {
+        primary:
+          "bg-indigo-700 leading-6 text-white shadow-sm hover:bg-indigo-600",
+        outline:
+          "border text-black bg-background hover:bg-accent hover:text-accent-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+    },
+  }
+);
 
-export function Button({ children, className, ...props }: ButtonProps) {
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof variants> {}
+
+export function Button({
+  children,
+  className,
+  variant,
+  ...props
+}: ButtonProps) {
   return (
-    <button
-      className={twMerge(
-        "flex justify-center items-center rounded-md bg-indigo-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600",
-        className
-      )}
-      {...props}
-    >
+    <button className={twMerge(variants({ variant }), className)} {...props}>
       {children}
     </button>
   );
