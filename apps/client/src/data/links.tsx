@@ -2,23 +2,23 @@ import { Home, Edit, Search, User, Heart } from "react-feather";
 
 export const links = [
   {
-    link: "/",
+    path: "/",
     icon: <Home />,
   },
   {
-    link: "/search",
+    path: "/search",
     icon: <Search />,
   },
   {
-    link: "/edit",
+    path: "/edit",
     icon: <Edit />,
   },
   {
-    link: "/heart",
+    path: "/heart",
     icon: <Heart />,
   },
   {
-    link: "/profile",
+    path: "/profile",
     icon: <User />,
   },
 ];
