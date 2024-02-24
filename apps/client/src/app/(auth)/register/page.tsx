@@ -37,52 +37,50 @@ export default function Register() {
   });
 
   return (
-    <div className="h-full grid place-item-center">
-      <form
-        onSubmit={handleSubmit}
-        className="border bg-white rounded w-full max-w-md px-6 py-8 m-auto space-y-4"
-      >
-        <h2 className="text-2xl font-bold mb-5">Register your account</h2>
-        <Input
-          value={values.username}
-          onChange={handleChange}
-          name="username"
-          label="Username"
-          type="text"
-        />
-        {touched.username && errors.username ? (
-          <small className="text-red-700">{errors.username}</small>
-        ) : null}
-        <Input
-          value={values.email}
-          onChange={handleChange}
-          name="email"
-          label="Email"
-          type="email"
-        />
-        {touched.email && errors.email ? (
-          <small className="text-red-700">{errors.email}</small>
-        ) : null}
-        <Input
-          value={values.password}
-          onChange={handleChange}
-          name="password"
-          label="Password"
-          type="password"
-        />
-        {touched.password && errors.password ? (
-          <small className="text-red-700">{errors.password}</small>
-        ) : null}
-        <Button type="submit" className="w-full">
-          Register
-        </Button>
-        <p className="text-center">
-          Already have an account?{" "}
-          <Link className="text-indigo-700" href="/login">
-            Login
-          </Link>
-        </p>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="border bg-white rounded w-full max-w-md px-6 py-8 m-auto space-y-4"
+    >
+      <h2 className="text-2xl font-bold mb-5">Register your account</h2>
+      <Input
+        value={values.username}
+        onChange={handleChange}
+        name="username"
+        label="Username"
+        type="text"
+      />
+      {touched.username && errors.username ? (
+        <small className="text-red-700">{errors.username}</small>
+      ) : null}
+      <Input
+        value={values.email}
+        onChange={handleChange}
+        name="email"
+        label="Email"
+        type="email"
+      />
+      {touched.email && errors.email ? (
+        <small className="text-red-700">{errors.email}</small>
+      ) : null}
+      <Input
+        value={values.password}
+        onChange={handleChange}
+        name="password"
+        label="Password"
+        type="password"
+      />
+      {touched.password && errors.password ? (
+        <small className="text-red-700">{errors.password}</small>
+      ) : null}
+      <Button type="submit" className="w-full">
+        Register
+      </Button>
+      <p className="text-center">
+        Already have an account?{" "}
+        <Link className="text-indigo-700" href="/login">
+          Login
+        </Link>
+      </p>
+    </form>
   );
 }
