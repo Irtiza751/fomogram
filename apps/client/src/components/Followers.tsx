@@ -19,7 +19,7 @@ export default function Followers({ followers }: FollowersProps) {
             height={aspect}
             alt={follower.name}
             src={follower.avatar}
-            className="inline-block rounded-full ring-2 ring-white"
+            className="inline-block rounded-full ring-2 ring-white hover:scale-105"
           />
         ))}
       </div>
