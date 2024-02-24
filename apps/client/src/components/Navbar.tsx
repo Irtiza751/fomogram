@@ -21,7 +21,7 @@ const links = [
     icon: <Heart />,
   },
   {
-    link: "/user",
+    link: "/profile",
     icon: <User />,
   },
 ];
