@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { useRouter } from "next/navigation";
 import { loginAction } from "../actions";
+import { Eye, EyeOff } from "react-feather";
+import { useState } from "react";
 
 export type Credentials = InferType<typeof loginFormSchema>;
 
@@ -14,6 +16,7 @@ const loginFormSchema = object({
 });
 
 export default function Login() {
+  const [show, setShow] = useState(false);
   const router = useRouter();
 
   const onSubmit = async (values: Credentials) => {
@@ -51,13 +54,21 @@ export default function Login() {
         {touched.email && errors.email ? (
           <small className="text-red-700">{errors.email}</small>
         ) : null}
-        <Input
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-          label="Password*"
-          type="password"
-        />
+        <div className="relative">
+          <Input
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            label="Password*"
+            type={show ? "text" : "password"}
+          />
+          <div
+            className="absolute bottom-2.5 right-3 text-gray-700 cursor-pointer"
+            onClick={() => setShow(!show)}
+          >
+            {show ? <Eye size={16} /> : <EyeOff size={16} />}
+          </div>
+        </div>
         {touched.password && errors.password ? (
           <small className="text-red-700">{errors.password}</small>
         ) : null}

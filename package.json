@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo test",
-    "ui:dev": "turbo run dev --filter=ui",
+    "ui:dev": "turbo run dev --filter=ui --filter=client",
     "client:dev": "turbo run dev --filter=client",
     "backend:dev": "turbo run dev --filter=backend",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
