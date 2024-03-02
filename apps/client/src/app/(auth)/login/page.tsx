@@ -4,28 +4,33 @@ import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { useRouter } from "next/navigation";
-import { loginAction } from "../actions";
 import { Eye, EyeOff } from "react-feather";
 import { useState } from "react";
-
-export type Credentials = InferType<typeof loginFormSchema>;
+import { fomo } from "@client/api/fomo";
 
 const loginFormSchema = object({
   email: string().email("Invalid email").required("Email is required"),
   password: string().required("Password is required").min(6),
 });
 
+type LoginResponse = {
+  token: string;
+  res: "OK";
+};
+
+type Credentials = InferType<typeof loginFormSchema>;
+
 export default function Login() {
   const [show, setShow] = useState(false);
   const router = useRouter();
 
-  const onSubmit = async (values: Credentials) => {
-    console.log("submitting...", values);
-    const res = await loginAction(values);
-    if (res == "ok") {
+  const onSubmit = async (creds: Credentials) => {
+    try {
+      const { data } = await fomo.post<LoginResponse>("/auth/login", creds);
       router.push("/");
-    } else {
-      console.log("err", res);
+      console.log(data);
+    } catch (error: any) {
+      console.log(error);
     }
   };
 
