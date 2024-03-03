@@ -16,7 +16,9 @@ function layout({ children }: { children: React.ReactNode }) {
           </Link>
         </nav>
       </header>
-      <main className="h-full bg-pattern">{children}</main>
+      <main className="min-h-screen grid place-item-center bg-pattern">
+        {children}
+      </main>
     </>
   );
 }
