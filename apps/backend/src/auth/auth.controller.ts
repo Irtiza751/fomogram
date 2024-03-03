@@ -2,9 +2,9 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
   Post,
   Res,
+  UnprocessableEntityException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -22,15 +22,23 @@ export class AuthController {
     return this._auth.create(body);
   }
 
-  @HttpCode(200)
   @Post('/login')
   async login(
     @Body() body: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     const data = await this._auth.validate(body);
-    res.cookie('_token', data.token);
-    return data;
+    if (data) {
+      // the max age of this cookies will be 1hour.
+      res.cookie('_token', data.token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 60,
+        // maxAge: 10 * 1000 * 60 // debuggin only,
+      });
+      return data;
+    } else {
+      throw new UnprocessableEntityException('In correct email or password');
+    }
   }
 
   @UseGuards(AuthGuard)

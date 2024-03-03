@@ -43,12 +43,15 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { email: credentials.email },
     });
-    const isValidPass = compare(credentials.password, user.password);
+
+    if (!user) return null;
+    const isValidPass = await compare(credentials.password, user.password);
     if (isValidPass) {
       const payload = { id: user.id };
       const token = this.jwt.sign(payload);
       const refreshToken = this.jwt.sign(payload, {
         secret: process.env.REFRESH_SECRET,
+        expiresIn: '1w',
       });
       const res = await this.client.set(`${user.id}`, refreshToken);
       return { token, res };
