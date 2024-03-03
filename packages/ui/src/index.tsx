@@ -1,5 +1,7 @@
 import "../dist/index.css";
 
+export * from "./icons/MenuIcon";
+
 export * from "./button";
 export * from "./input";
-export * from "./icons/MenuIcon";
+export * from "./tabs";
