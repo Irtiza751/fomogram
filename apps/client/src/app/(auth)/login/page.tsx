@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { useRouter } from "next/navigation";
 import { loginAction } from "../actions";
+import { Eye, EyeOff } from "react-feather";
+import { useState } from "react";
 
 export type Credentials = InferType<typeof loginFormSchema>;
 
@@ -14,6 +16,7 @@ const loginFormSchema = object({
 });
 
 export default function Login() {
+  const [show, setShow] = useState(false);
   const router = useRouter();
 
   const onSubmit = async (values: Credentials) => {

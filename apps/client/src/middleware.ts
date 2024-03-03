@@ -1,14 +1,22 @@
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get("_token")?.value;
-  const endpoint = request.url.split("/").at(-1);
+export function middleware(req: NextRequest) {
+  console.log("next pathname: ", req.nextUrl.pathname);
 
-  if (!token && endpoint !== "login") {
-    return NextResponse.redirect(new URL("/login", request.url));
-  } else {
-    return NextResponse.next();
+  const token = req.cookies.get("_token")?.value;
+  const pathname = req.nextUrl.pathname;
+
+  if (!token && pathname === "/") {
+    return Response.redirect(new URL("/login", req.url));
+  }
+
+  if (token && pathname == "/login") {
+    return Response.redirect(new URL("/", req.url));
+  }
+
+  if (token && pathname == "/register") {
+    return Response.redirect(new URL("/", req.url));
   }
 }
 
