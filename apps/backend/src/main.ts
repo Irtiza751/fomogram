@@ -7,7 +7,10 @@ import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-cl
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const { httpAdapter } = app.get(HttpAdapterHost);
-  app.enableCors({ origin: true, credentials: true });
+  app.enableCors({
+    origin: ['http://localhost:3000', 'https://fomogram.netlify.app'],
+    credentials: true,
+  });
   app.use(cookieParser());
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
