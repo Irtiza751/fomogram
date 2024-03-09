@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Navbar from "@client/components/Navbar";
 import ProfileGroup from "@client/components/Followers";
-import { Button } from "@fomogram/ui";
+import { Button, Tabs } from "@fomogram/ui";
 
 const followers = [
   {
@@ -44,6 +44,8 @@ export default function Profile() {
         <Button variant="outline" className="w-full">
           Edit Profile
         </Button>
+
+        <Tabs />
 
         <div className="tab-wrapper">
           <nav className="relative z-0 flex" role="tablist">
