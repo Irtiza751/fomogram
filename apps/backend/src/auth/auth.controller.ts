@@ -33,6 +33,8 @@ export class AuthController {
       res.cookie('_token', data.token, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 60,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
         // maxAge: 10 * 1000 * 60 // debuggin only,
       });
       return data;
