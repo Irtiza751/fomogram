@@ -34,7 +34,7 @@ export class AuthController {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 60,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'none',
         // maxAge: 10 * 1000 * 60 // debuggin only,
       });
       return data;
