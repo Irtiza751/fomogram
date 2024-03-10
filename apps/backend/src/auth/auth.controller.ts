@@ -35,7 +35,7 @@ export class AuthController {
         maxAge: 1000 * 60 * 60 * 60,
         secure: true,
         sameSite: 'none',
-        domain: 'https://fomogram.netlify.app',
+        domain: 'fomogram.netlify.app',
         // maxAge: 10 * 1000 * 60 // debuggin only,
       });
       return data;
