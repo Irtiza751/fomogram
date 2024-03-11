@@ -30,7 +30,7 @@ export class AuthController {
     const data = await this._auth.validate(body);
     if (data) {
       // the max age of this cookies will be 1hour.
-      res.cookie('_token', data.token, {
+      res.cookie('auth_token', data.token, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 60,
         secure: true,

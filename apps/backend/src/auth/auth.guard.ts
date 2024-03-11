@@ -32,11 +32,11 @@ export class AuthGuard implements CanActivate {
   private extractTokenFromHeader(request: Request) {
     const cookies = this.decodeCookies(request.headers.cookie);
     console.log('cookies: ', cookies);
-    console.log('_token: ', cookies['_token']);
+    console.log('auth_token: ', cookies['auth_token']);
 
     // const [type, token] = request.headers.authorization?.split(' ') ?? [];
     // return type === 'Bearer' ? token : null;
-    return cookies['_token'] || '';
+    return cookies['auth_token'] || '';
   }
 
   private decodeCookies(cookies: string): Record<string, string> {
