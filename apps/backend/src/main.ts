@@ -4,15 +4,17 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter';
 
+// const allowedOrigins = [
+//   'http://localhost:3000',
+//   'https://fomogram.netlify.app',
+//   'https://fomogram.vercel.app',
+// ];
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://fomogram.netlify.app',
-      'https://fomogram.vercel.app/login',
-    ],
+    origin: true,
     credentials: true,
   });
   app.use(cookieParser());
