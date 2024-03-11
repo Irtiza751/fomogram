@@ -32,10 +32,10 @@ export class AuthController {
       // the max age of this cookies will be 1hour.
       res.cookie('auth_token', data.token, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 60,
         secure: true,
         sameSite: 'lax',
         // domain: 'fomogram.netlify.app',
+        // maxAge: 1000 * 60 * 60 * 60,
         // maxAge: 10 * 1000 * 60 // debuggin only,
       });
       return data;
