@@ -29,7 +29,7 @@ export default function Login() {
   const onSubmit = async (creds: Credentials) => {
     try {
       const { data } = await fomo.post<LoginResponse>("/auth/login", creds);
-      router.push("/home");
+      setTimeout(() => router.push("/home"), 100);
       console.log(data);
     } catch (error) {
       const { response } = error as AxiosError<any>;
