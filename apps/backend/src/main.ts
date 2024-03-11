@@ -8,7 +8,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://fomogram.netlify.app'],
+    origin: [
+      'http://localhost:3000',
+      'https://fomogram.netlify.app',
+      'https://fomogram.vercel.app/login',
+    ],
     credentials: true,
   });
   app.use(cookieParser());
