@@ -33,7 +33,7 @@ export class AuthController {
       res.cookie('auth_token', data.token, {
         httpOnly: true,
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'none',
         // domain: 'fomogram.netlify.app',
         // maxAge: 1000 * 60 * 60 * 60,
         // maxAge: 10 * 1000 * 60 // debuggin only,
