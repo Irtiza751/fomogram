@@ -34,7 +34,7 @@ export class AuthController {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        // domain: 'fomogram.netlify.app',
+        domain: 'fomogram.vercel.app',
         // maxAge: 1000 * 60 * 60 * 60,
         // maxAge: 10 * 1000 * 60 // debuggin only,
       });
