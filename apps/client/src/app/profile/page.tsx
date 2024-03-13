@@ -2,6 +2,11 @@ import Image from "next/image";
 import Navbar from "@client/components/Navbar";
 import ProfileGroup from "@client/components/Followers";
 import { Button, Tabs } from "@fomogram/ui";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Fomogram | Profile",
+};
 
 const followers = [
   {
