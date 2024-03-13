@@ -29,15 +29,16 @@ export class AuthController {
   ) {
     const data = await this._auth.validate(body);
     if (data) {
+       res.cookie('auth_token', data.token);
       // the max age of this cookies will be 1hour.
-      res.cookie('auth_token', data.token, {
+      /* res.cookie('auth_token', data.token, {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
         domain: 'fomogram.vercel.app',
         // maxAge: 1000 * 60 * 60 * 60,
         // maxAge: 10 * 1000 * 60 // debuggin only,
-      });
+      }); */
       return data;
     } else {
       throw new UnprocessableEntityException('In correct email or password');
