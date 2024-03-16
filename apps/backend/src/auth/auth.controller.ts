@@ -24,6 +24,7 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() body: LoginDto) {
+    console.log('login: ', body);
     const data = await this._auth.validate(body);
     if (data) {
       return data;

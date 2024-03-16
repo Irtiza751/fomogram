@@ -1,25 +1,41 @@
-import Link from "next/link";
+import Navbar from "@client/components/Navbar";
+import { Post } from "@client/components/Post";
+import { Button } from "@fomogram/ui";
+import { cookies } from "next/headers";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const isLoggedin = cookies().get("auth_token")?.value;
+  console.log(isLoggedin);
+
+  if (!isLoggedin) {
+    redirect("/login");
+  }
+
   return (
     <>
-      <header className="z-10 backdrop-blur-md bg-white/75 border-b py-4 mb-3">
-        <nav className="container flex justify-center">
-          <Link href="/">
-            <Image
-              alt="Fomogram"
-              src="/imgs/logo.svg"
-              width={163}
-              height={30}
-            />
-          </Link>
-        </nav>
-      </header>
+      <Navbar />
       <main className="container pt-10 max-w-3xl">
-        <h1 className="text-5xl font-bold mb-4 text-center">
-          Landing page will be here comming soon
-        </h1>
+        <div className="flex gap-5 items-center border-b pb-5">
+          <Image
+            width={40}
+            height={40}
+            alt="Muhammad Irtiza"
+            src="/imgs/avatar.jpeg"
+            className="rounded-full ring-2 ring-offset-1 ring-indigo-600"
+          />
+          <input
+            type="text"
+            placeholder="Start a new Fomo"
+            className="w-full h-full"
+          />
+          <Button className="w-auto rounded-full">Submit</Button>
+        </div>
+
+        <Post />
+        <Post />
+        <Post />
       </main>
     </>
   );

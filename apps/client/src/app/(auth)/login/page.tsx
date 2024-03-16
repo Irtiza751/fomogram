@@ -8,6 +8,7 @@ import { Eye, EyeOff, XCircle } from "react-feather";
 import { useState } from "react";
 import { fomo } from "@client/api/fomo";
 import { AxiosError } from "axios";
+// import { makeSession } from "../actions";
 
 const loginFormSchema = object({
   email: string().email("Invalid email").required("Email is required"),
@@ -29,7 +30,7 @@ export default function Login() {
   const onSubmit = async (creds: Credentials) => {
     try {
       const { data } = await fomo.post<LoginResponse>("/auth/login", creds);
-      router.push("/home");
+      router.push("/");
       console.log(data);
     } catch (error) {
       const { response } = error as AxiosError<any>;
