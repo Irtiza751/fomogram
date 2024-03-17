@@ -6,7 +6,7 @@ const protectedRoutes = ["/home", "/search", "/edit", "/heart", "/profile"];
 export function middleware(req: NextRequest) {
   console.log("next pathname: ", req.nextUrl.pathname);
 
-  const token = req.cookies.get("auth_token")?.value;
+  const token = req.cookies.get("sessionToken")?.value;
   const pathname = req.nextUrl.pathname;
 
   if (!token && protectedRoutes.includes(pathname)) {

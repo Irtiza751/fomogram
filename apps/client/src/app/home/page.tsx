@@ -6,7 +6,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const isLoggedin = cookies().get("auth_token")?.value;
+  const isLoggedin = cookies().get("sessionToken")?.value;
   console.log(isLoggedin);
 
   if (!isLoggedin) {
