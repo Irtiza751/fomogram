@@ -1,7 +1,6 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import * as cookieParser from 'cookie-parser';
 import { PrismaClientExceptionFilter } from './prisma-client-exception/prisma-client-exception.filter';
 
 const allowedOrigins = [
@@ -17,7 +16,6 @@ async function bootstrap() {
     origin: allowedOrigins,
     credentials: true,
   });
-  app.use(cookieParser());
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
