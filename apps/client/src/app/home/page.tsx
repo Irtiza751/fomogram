@@ -1,18 +1,9 @@
 import Navbar from "@client/components/Navbar";
 import { Post } from "@client/components/Post";
 import { Button } from "@fomogram/ui";
-import { cookies } from "next/headers";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const isLoggedin = cookies().get("sessionToken")?.value;
-  console.log(isLoggedin);
-
-  if (!isLoggedin) {
-    redirect("/login");
-  }
-
   return (
     <>
       <Navbar />
