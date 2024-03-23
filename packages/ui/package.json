@@ -27,7 +27,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
     "autoprefixer": "^10.4.16",
     "class-variance-authority": "^0.7.0",
     "postcss": "^8.4.32",
