@@ -13,18 +13,23 @@ const postSchema = object({
 
 export type Post = InferType<typeof postSchema>;
 
-export default function NewPost() {
+type NewpostProps = {
+  closeDialog(): void;
+};
+
+export default function NewPost({ closeDialog }: NewpostProps) {
   const { values, handleSubmit, handleChange, isValid } = useFormik<Post>({
     validationSchema: postSchema,
     initialValues: {
       caption: "",
-      image: "https://avatars.githubusercontent.com/u/91867702?v=4",
+      image: "",
       // tags: [],
     },
     async onSubmit(post: Post) {
       console.log(post);
       try {
         const { data } = await fomo.post("/post/create", post);
+        closeDialog();
       } catch (error) {
         console.log(error);
       }
