@@ -18,7 +18,8 @@
       }
     ],
     "paths": {
-      "@client/*": ["./src/*"]
+      "@client/*": ["./src/*"],
+      "react": ["./node_modules/@types/react"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

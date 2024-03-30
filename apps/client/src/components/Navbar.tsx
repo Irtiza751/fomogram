@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Dialog, Input, MenuIcon } from "@fomogram/ui";
+import { Dialog, MenuIcon } from "@fomogram/ui";
 import { links } from "@client/data/links";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import NewPost from "./NewPost";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -13,13 +14,7 @@ export default function Navbar() {
   return (
     <>
       <Dialog show={showDialog} onClose={() => setShowDialog(false)}>
-        <form className="bg-white rounded-lg p-4 max-w-96 w-full">
-          <h1>Create new Post</h1>
-          <br />
-          <textarea className="w-full outline-none min-h-6 h-max border-l-2 px-2"></textarea>
-          <br />
-          <Button className="w-full">Post</Button>
-        </form>
+        <NewPost />
       </Dialog>
 
       <header className="backdrop-blur-md bg-white/75 border-b sticky top-0 z-10">
