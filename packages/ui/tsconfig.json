@@ -1,7 +1,10 @@
 {
   "extends": "@fomogram/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    }
   },
   "include": ["src", "index.ts"],
   "exclude": ["node_modules", "dist"]

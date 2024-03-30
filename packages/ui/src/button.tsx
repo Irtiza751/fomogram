@@ -10,6 +10,8 @@ const variants = cva(
           "bg-indigo-700 leading-6 text-white shadow-sm hover:bg-indigo-600",
         outline:
           "border border-gray-300 text-black bg-background hover:bg-accent hover:text-accent-foreground",
+        disabled:
+          "border border-gray-300 text-gray-600 bg-gray-300 hover:bg-accent hover:text-accent-foreground",
       },
     },
     defaultVariants: {
