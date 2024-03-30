@@ -23,7 +23,7 @@ export class PostController {
   constructor(private readonly post: PostService) {}
 
   @UseGuards(AuthGuard)
-  @Post()
+  @Post('/create')
   createPost(@Request() req: RequestObj, @Body() body: PostDto) {
     const { id: userId } = req.user;
     const post = { ...body, userId };
@@ -31,9 +31,8 @@ export class PostController {
   }
 
   @UseGuards(AuthGuard)
-  @Get()
-  allPost(@Request() req: RequestObj) {
-    const { id } = req.user;
-    return this.post.findAll(id);
+  @Get('/allposts')
+  allPost() {
+    return this.post.findAll();
   }
 }
