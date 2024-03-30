@@ -12,6 +12,12 @@ export interface Post {
   image: string;
   createdAt: string;
   updatedAt: string;
+  user: User;
+}
+
+export interface User {
+  image: string;
+  username: string;
 }
 
 export default function Home() {
@@ -35,7 +41,7 @@ export default function Home() {
       <Navbar />
       <main className="container pt-10 max-w-3xl">
         {posts.map((post) => (
-          <Post key={post.id} />
+          <Post key={post.id} post={post} />
         ))}
       </main>
     </>

@@ -32,7 +32,8 @@ export class PostController {
 
   @UseGuards(AuthGuard)
   @Get('/allposts')
-  allPost() {
-    return this.post.findAll();
+  allPost(@Request() req: RequestObj) {
+    const { id } = req.user;
+    return this.post.findAll(id);
   }
 }
