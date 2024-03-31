@@ -1,12 +1,13 @@
+import { Post } from "@client/app/page";
 import Image from "next/image";
 import { Heart, MessageCircle, Repeat, Send } from "react-feather";
 
-export function Post() {
+export function Post({ post }: { post: Post }) {
   return (
     <div className="fomo-card grid grid-cols-12 gap-3 my-5">
       <div className="fomo-thread relative">
         <Image
-          src="/imgs/avatar.jpeg"
+          src={post.user.image}
           alt="Muhammad Irtiza"
           className="rounded-full ring-2 ring-offset-1 ring-slate-200"
           width={40}
@@ -14,22 +15,19 @@ export function Post() {
         />
       </div>
       <figure className="col-start-2 col-span-full ml-1 space-y-3">
-        <span className="font-semibold">Muhammad Irtiza</span>
+        <span className="font-semibold">{post.user.username}</span>
         {/* content */}
-        <figcaption className="text-stone-700">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-          veritatis quae iusto at non dolore!
-        </figcaption>
+        <figcaption className="text-stone-700">{post.caption}</figcaption>
         {/* post iamge it's conditional */}
-        <div>
+        {post.image && (
           <Image
-            src="/imgs/post.jpg"
+            src={post.image}
             alt="Image name"
             className="block rounded-lg"
             width={550}
             height={340}
           />
-        </div>
+        )}
         {/* like comment repost share */}
         <div className="flex gap-4">
           <button title="Like">
