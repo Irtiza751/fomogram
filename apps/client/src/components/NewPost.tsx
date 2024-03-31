@@ -1,3 +1,4 @@
+import { fomo } from "@client/api/fomo";
 import { Button } from "@fomogram/ui";
 import { useFormik } from "formik";
 import Image from "next/image";
@@ -5,8 +6,8 @@ import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
 import { object, string, array, InferType } from "yup";
 
 const postSchema = object({
-  content: string().required(),
-  tags: array(string()),
+  caption: string().required(),
+  // tags: array(string()),
   image: string(),
 });
 
@@ -16,12 +17,17 @@ export default function NewPost() {
   const { values, handleSubmit, handleChange, isValid } = useFormik<Post>({
     validationSchema: postSchema,
     initialValues: {
-      content: "",
-      image: "",
-      tags: [],
+      caption: "",
+      image: "https://avatars.githubusercontent.com/u/91867702?v=4",
+      // tags: [],
     },
     async onSubmit(post: Post) {
       console.log(post);
+      try {
+        const { data } = await fomo.post("/post/create", post);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -41,9 +47,9 @@ export default function NewPost() {
         <div className="w-full">
           <p className="font-semibold">Muhammad Irtiza</p>
           <input
-            value={values.content}
+            value={values.caption}
             onChange={handleChange}
-            name="content"
+            name="caption"
             className="w-full outline-none resize-none h-auto mb-3"
             placeholder="Start the Fomo"
           />
