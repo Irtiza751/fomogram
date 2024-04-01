@@ -31,9 +31,6 @@ export class AuthGuard implements CanActivate {
 
   private extractTokenFromHeader(request: Request) {
     const cookies = this.decodeCookies(request.headers.cookie);
-    console.log('cookies: ', cookies);
-    console.log('sessionToken: ', cookies['sessionToken']);
-
     // const [type, token] = request.headers.authorization?.split(' ') ?? [];
     // return type === 'Bearer' ? token : null;
     return cookies['sessionToken'] || '';
