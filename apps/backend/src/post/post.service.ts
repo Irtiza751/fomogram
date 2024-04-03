@@ -17,7 +17,9 @@ export class PostService {
     });
   }
 
-  async findAll(userId: number) {
-    return await this.prisma.post.findMany({ where: { userId } });
+  async findAll() {
+    return await this.prisma.post.findMany({
+      include: { user: { select: { image: true, username: true } } },
+    });
   }
 }
