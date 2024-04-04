@@ -17,8 +17,12 @@ export class PostService {
     });
   }
 
-  async findAll() {
+  async findAll(userId: number) {
+    /**
+     * @todo Fetch posts of followings & followers
+     */
     return await this.prisma.post.findMany({
+      orderBy: { createdAt: 'desc' },
       include: { user: { select: { image: true, username: true } } },
     });
   }
