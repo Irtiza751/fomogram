@@ -31,22 +31,15 @@ export class PostController {
 
   @UseGuards(AuthGuard)
   @Post('/create')
-  createPost(@Request() req: RequestObj, @Body() body: PostDto) {
+  @UseInterceptors(FileInterceptor('image'))
+  createPost(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req: RequestObj,
+    @Body() body: PostDto,
+  ) {
     const { id: userId } = req.user;
     const post = { ...body, userId };
-    return this.post.create(post);
-  }
-
-  @UseGuards(AuthGuard)
-  @Post('/upload')
-  @UseInterceptors(FileInterceptor('image'))
-  uploadImage(
-    @Request() req: RequestObj,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    const { id } = req.user;
-    console.log('user id: ', id);
-    return this.cloudinary.upload(file);
+    return this.post.create(post, file);
   }
 
   @UseGuards(AuthGuard)

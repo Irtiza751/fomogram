@@ -1,7 +1,7 @@
-import { IsString } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 export class PostDto {
-  @IsString({ message: 'image is required' })
+  @IsOptional()
   image: string;
 
   @IsString({ message: 'caption is required' })
