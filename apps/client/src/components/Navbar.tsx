@@ -30,6 +30,7 @@ export default function Navbar() {
             {links.map((link, i) => (
               <li key={i}>
                 <Link
+                  scroll={link.path !== "/edit"}
                   href={link.path !== "/edit" ? link.path : "/"}
                   onClick={() => {
                     if (link.path === "/edit") {
