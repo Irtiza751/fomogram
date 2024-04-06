@@ -5,7 +5,11 @@ import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
 
-export default function NewPost() {
+type NewpostProps = {
+  closeDialog(): void;
+};
+
+export default function NewPost({ closeDialog }: NewpostProps) {
   const [file, setFile] = useState<File>();
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
@@ -16,6 +20,7 @@ export default function NewPost() {
     console.log(formData.get("image"));
     try {
       const { data } = await fomo.post("/post/create", formData);
+      closeDialog();
       console.log(data);
     } catch (error) {
       console.log(error);
