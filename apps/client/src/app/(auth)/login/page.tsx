@@ -6,47 +6,47 @@ import { InferType, object, string } from "yup";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, XCircle } from "react-feather";
 import { useState } from "react";
-import { fomo } from "@client/api/fomo";
-import { AxiosError } from "axios";
+import { useRequest } from "@client/hooks/useRequest";
 
 const loginFormSchema = object({
   email: string().email("Invalid email").required("Email is required"),
   password: string().required("Password is required"),
 });
 
-type LoginResponse = {
-  token: string;
-  res: "OK";
-};
-
 type Credentials = InferType<typeof loginFormSchema>;
 
 export default function Login() {
   const [show, setShow] = useState(false);
   const [error, showError] = useState<string>("");
-  const router = useRouter();
 
-  const onSubmit = async (creds: Credentials) => {
-    try {
-      const { data } = await fomo.post<LoginResponse>("/auth/login", creds);
-      router.push("/");
+  const { isLoading, post } = useRequest({
+    endpoint: "/auth/login",
+    onSuccess(data) {
       console.log(data);
-    } catch (error) {
-      const { response } = error as AxiosError<any>;
+      router.push("/");
+    },
+    onError(error) {
+      const { response } = error;
       if (response?.status === 422) {
         showError(response.data.message);
       }
-    }
-  };
+    },
+  });
+
+  const router = useRouter();
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit,
+    onSubmit: async (creds: Credentials) => {
+      post(creds);
+    },
     validationSchema: loginFormSchema,
   });
+
+  console.log({ isLoading });
 
   return (
     <form
@@ -98,7 +98,7 @@ export default function Login() {
         Forgot password?
       </Link>
       <Button type="submit" className="w-full">
-        Login
+        {isLoading ? "Loading..." : "Login"}
       </Button>
       <p className="text-center">
         Don't have an account?{" "}
