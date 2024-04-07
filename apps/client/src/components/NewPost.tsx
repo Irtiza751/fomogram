@@ -14,6 +14,7 @@ export default function NewPost({ closeDialog }: NewpostProps) {
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    closeDialog();
     const target = event.target as HTMLFormElement;
     const formData = new FormData(target);
 
