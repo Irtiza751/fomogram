@@ -1,45 +1,44 @@
+// import { fomo } from "@client/api/fomo";
 import { fomo } from "@client/api/fomo";
 import { Button } from "@fomogram/ui";
-import { useFormik } from "formik";
 import Image from "next/image";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
-import { object, string, array, InferType } from "yup";
-
-const postSchema = object({
-  caption: string().required(),
-  // tags: array(string()),
-  image: string(),
-});
-
-export type Post = InferType<typeof postSchema>;
 
 type NewpostProps = {
   closeDialog(): void;
 };
 
 export default function NewPost({ closeDialog }: NewpostProps) {
-  const { values, handleSubmit, handleChange, isValid } = useFormik<Post>({
-    validationSchema: postSchema,
-    initialValues: {
-      caption: "",
-      image: "",
-      // tags: [],
-    },
-    async onSubmit(post: Post) {
-      console.log(post);
-      try {
-        const { data } = await fomo.post("/post/create", post);
-        closeDialog();
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  });
+  const [file, setFile] = useState<File>();
+
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    closeDialog();
+    const target = event.target as HTMLFormElement;
+    const formData = new FormData(target);
+
+    console.log(formData.get("image"));
+    try {
+      const { data } = await fomo.post("/post/create", formData);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+
+    if (files) {
+      setFile(files[0]);
+    }
+  };
 
   return (
     <form
       className="bg-white rounded-lg p-6 outline-none"
-      onSubmit={handleSubmit}
+      onSubmit={submitHandler}
     >
       <div className="flex items-start gap-3">
         <Image
@@ -52,12 +51,19 @@ export default function NewPost({ closeDialog }: NewpostProps) {
         <div className="w-full">
           <p className="font-semibold">Muhammad Irtiza</p>
           <input
-            value={values.caption}
-            onChange={handleChange}
             name="caption"
             className="w-full outline-none resize-none h-auto mb-3"
             placeholder="Start the Fomo"
           />
+          {file && (
+            <Image
+              className="rounded-md mb-3 outline-2"
+              src={URL.createObjectURL(file)}
+              alt={file.name}
+              width={400}
+              height={600}
+            />
+          )}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <label
@@ -69,21 +75,16 @@ export default function NewPost({ closeDialog }: NewpostProps) {
               </label>
               <input
                 name="image"
-                onChange={handleChange}
                 hidden
                 type="file"
                 id="image"
+                onChange={uploadImage}
               />
               <button title="Add tags" type="button">
                 <HashIcon size={18} color="#999999" />
               </button>
             </div>
-            <Button
-              type="submit"
-              disabled={!isValid}
-              className="rounded-full"
-              variant={isValid ? "primary" : "disabled"}
-            >
+            <Button type="submit" className="rounded-full">
               New Post
             </Button>
           </div>
