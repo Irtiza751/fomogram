@@ -5,7 +5,11 @@ import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
 
-export default function NewPost() {
+type NewpostProps = {
+  closeDialog(): void;
+};
+
+export default function NewPost({ closeDialog }: NewpostProps) {
   const [file, setFile] = useState<File>();
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {

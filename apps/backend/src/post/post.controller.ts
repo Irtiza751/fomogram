@@ -12,7 +12,6 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { PostService } from './post.service';
 import { PostDto } from './dtos/post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 interface RequestObj {
   user: {
@@ -24,10 +23,7 @@ interface RequestObj {
 
 @Controller('post')
 export class PostController {
-  constructor(
-    private readonly post: PostService,
-    private readonly cloudinary: CloudinaryService,
-  ) {}
+  constructor(private readonly post: PostService) {}
 
   @UseGuards(AuthGuard)
   @Post('/create')

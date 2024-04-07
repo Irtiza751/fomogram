@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <>
       <Dialog show={showDialog} onClose={() => setShowDialog(false)}>
-        <NewPost />
+        <NewPost closeDialog={() => setShowDialog(false)} />
       </Dialog>
 
       <header className="backdrop-blur-md bg-white/75 border-b sticky top-0 z-10">
