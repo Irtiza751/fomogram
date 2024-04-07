@@ -1,5 +1,5 @@
 import { fomo } from "@client/api/fomo";
-import { AxiosError, AxiosResponse, Method } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 
 type Config = {
