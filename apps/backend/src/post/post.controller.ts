@@ -4,11 +4,14 @@ import {
   Get,
   Post,
   Request,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PostService } from './post.service';
 import { PostDto } from './dtos/post.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 interface RequestObj {
   user: {
@@ -24,10 +27,15 @@ export class PostController {
 
   @UseGuards(AuthGuard)
   @Post('/create')
-  createPost(@Request() req: RequestObj, @Body() body: PostDto) {
+  @UseInterceptors(FileInterceptor('image'))
+  createPost(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req: RequestObj,
+    @Body() body: PostDto,
+  ) {
     const { id: userId } = req.user;
     const post = { ...body, userId };
-    return this.post.create(post);
+    return this.post.create(post, file);
   }
 
   @UseGuards(AuthGuard)
