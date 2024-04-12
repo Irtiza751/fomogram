@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Button, Input } from "@fomogram/ui";
+import { Button, Input, Spinner } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { useRouter } from "next/navigation";
@@ -97,8 +97,9 @@ export default function Login() {
       >
         Forgot password?
       </Link>
-      <Button type="submit" className="w-full">
-        {isLoading ? "Loading..." : "Login"}
+      <Button type="submit" className="w-full space-x-2">
+        {isLoading && <Spinner />}
+        <span>Login</span>
       </Button>
       <p className="text-center">
         Don't have an account?{" "}
