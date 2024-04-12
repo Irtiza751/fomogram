@@ -1,8 +1,8 @@
-import { Post } from "@client/app/page";
 import Image from "next/image";
 import { Heart, MessageCircle, Repeat, Send } from "react-feather";
+import { Post as PostInterface } from "./Posts";
 
-export function Post({ post }: { post: Post }) {
+export function Post({ post }: { post: PostInterface }) {
   return (
     <div className="fomo-card grid grid-cols-12 gap-3 my-5">
       <div className="fomo-thread relative">
@@ -14,7 +14,11 @@ export function Post({ post }: { post: Post }) {
           height={40}
         />
       </div>
-      <figure className="col-start-2 col-span-full ml-1 space-y-3">
+      <figure
+        className={`col-start-2 col-span-full space-y-3 px-4 ${
+          !post.image ? "py-4 border rounded-lg" : ""
+        }`}
+      >
         <span className="font-semibold">{post.user.username}</span>
         {/* content */}
         <figcaption className="text-stone-700">{post.caption}</figcaption>
@@ -26,6 +30,7 @@ export function Post({ post }: { post: Post }) {
             className="block rounded-lg"
             width={550}
             height={340}
+            priority={true}
           />
         )}
         {/* like comment repost share */}

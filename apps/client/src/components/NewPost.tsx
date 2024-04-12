@@ -1,7 +1,7 @@
-// import { fomo } from "@client/api/fomo";
-import { fomo } from "@client/api/fomo";
+import { useRequest } from "@client/hooks/useRequest";
 import { Button } from "@fomogram/ui";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
 
@@ -10,21 +10,23 @@ type NewpostProps = {
 };
 
 export default function NewPost({ closeDialog }: NewpostProps) {
+  const router = useRouter();
   const [file, setFile] = useState<File>();
+
+  const { isLoading, post } = useRequest({
+    endpoint: "/post/create",
+    onSuccess(data) {
+      console.log(data);
+      closeDialog();
+      router.replace("/");
+    },
+  });
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    closeDialog();
     const target = event.target as HTMLFormElement;
     const formData = new FormData(target);
-
-    console.log(formData.get("image"));
-    try {
-      const { data } = await fomo.post("/post/create", formData);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    post(formData);
   };
 
   const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -84,8 +86,8 @@ export default function NewPost({ closeDialog }: NewpostProps) {
                 <HashIcon size={18} color="#999999" />
               </button>
             </div>
-            <Button type="submit" className="rounded-full">
-              New Post
+            <Button type="submit" className="rounded-full" disabled={isLoading}>
+              {isLoading ? "Creating..." : <span>Create</span>}
             </Button>
           </div>
         </div>
