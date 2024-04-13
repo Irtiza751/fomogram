@@ -14,7 +14,7 @@ export function useRequest<T = {}>(config: Config) {
   const [data, setData] = useState<T>();
 
   const post = async (
-    payload: Record<string, string> | FormData,
+    payload: Record<string, any> | FormData,
     params?: Record<string, string>
   ) => {
     try {
