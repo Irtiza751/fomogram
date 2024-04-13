@@ -30,6 +30,7 @@ const nextConfig = {
     ],
   },
 
+  // runs on the client side
   async rewrites() {
     return [
       {
