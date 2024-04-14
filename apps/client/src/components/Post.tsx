@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Heart, MessageCircle, Repeat, Send } from "react-feather";
 import { Post as PostInterface } from "./Posts";
 import { Cookies } from "@client/lib/Cookies";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRequest } from "@client/hooks/useRequest";
 
 export function Post({ post }: { post: PostInterface }) {
