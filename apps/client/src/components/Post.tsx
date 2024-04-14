@@ -24,10 +24,6 @@ export function Post({ post }: { post: PostInterface }) {
     request({ userId, postId: post.id });
   };
 
-  useEffect(() => {
-    console.log({ like });
-  }, [like]);
-
   return (
     <div className="fomo-card grid grid-cols-12 gap-3 my-5">
       <div className="fomo-thread relative">
