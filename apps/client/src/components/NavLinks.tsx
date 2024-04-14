@@ -2,15 +2,26 @@
 
 import Link from "next/link";
 import { links } from "@client/data/links";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { MenuIcon } from "@fomogram/ui";
 import { useState } from "react";
 import NewPost from "./NewPost";
 
 import { Dialog } from "@fomogram/ui";
+import { fomo } from "@client/api/fomo";
 
 export function NavLinks() {
+  const router = useRouter();
   const pathname = usePathname();
   const [showDialog, setShowDialog] = useState(false);
+
+  const onLogout = async () => {
+    console.log("logging out...");
+    const { data } = await fomo.get("/auth/logout");
+    if (data) {
+      router.replace("/login");
+    }
+  };
 
   return (
     <>
@@ -38,6 +49,13 @@ export function NavLinks() {
           </li>
         ))}
       </ul>
+      <button
+        onClick={onLogout}
+        className="flex items-center gap-x-3 self-center text-stone-800/50"
+      >
+        <MenuIcon />
+        <span>Logout</span>
+      </button>
     </>
   );
 }

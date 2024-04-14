@@ -13,7 +13,7 @@ import { PostService } from './post.service';
 import { PostDto } from './dtos/post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-interface RequestObj {
+export interface RequestObj {
   user: {
     id: number;
     iat: number;
