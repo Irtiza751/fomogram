@@ -57,4 +57,8 @@ export class AuthService {
     }
     return null;
   }
+
+  async logout(userId: number) {
+    return await this.client.del(`${userId}`);
+  }
 }

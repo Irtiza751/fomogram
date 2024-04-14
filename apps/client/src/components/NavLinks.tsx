@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { links } from "@client/data/links";
 import { usePathname, useRouter } from "next/navigation";
-import { MenuIcon } from "@fomogram/ui";
+import { Button } from "@fomogram/ui";
 import { useState } from "react";
 import NewPost from "./NewPost";
 
@@ -49,13 +49,9 @@ export function NavLinks() {
           </li>
         ))}
       </ul>
-      <button
-        onClick={onLogout}
-        className="flex items-center gap-x-3 self-center text-stone-800/50"
-      >
-        <MenuIcon />
-        <span>Logout</span>
-      </button>
+      <Button onClick={onLogout} variant="outline" className="self-center">
+        Logout
+      </Button>
     </>
   );
 }

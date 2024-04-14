@@ -59,6 +59,6 @@ export class AuthController {
     console.log(userId);
     res.clearCookie('sessionToken');
     res.clearCookie('userId');
-    return 'Ok';
+    return this._auth.logout(userId);
   }
 }
