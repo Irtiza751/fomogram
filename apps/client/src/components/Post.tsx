@@ -37,11 +37,7 @@ export function Post({ post }: { post: PostInterface }) {
           height={40}
         />
       </div>
-      <figure
-        className={`col-start-2 col-span-full space-y-3 px-4 ${
-          !post.image ? "py-4 border rounded-lg" : ""
-        }`}
-      >
+      <figure className={`col-start-2 col-span-full space-y-2`}>
         <span className="font-bold">{post.user.username}</span>
         {/* content */}
         <figcaption>{post.caption}</figcaption>
