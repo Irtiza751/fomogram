@@ -35,7 +35,7 @@ export class PostService {
       orderBy: { createdAt: 'desc' },
       include: {
         user: { select: { image: true, username: true } },
-        likes: { select: { userId: true, postId: true } },
+        likes: { select: { userId: true } },
       },
     });
   }

@@ -53,8 +53,7 @@ export class AuthService {
         expiresIn: '1w',
       });
       const res = await this.client.set(`${user.id}`, refreshToken);
-      const { id, email, image, username } = user;
-      return { token, res, user: { id, email, image, username } };
+      return { token, res, userId: user.id };
     }
     return null;
   }
