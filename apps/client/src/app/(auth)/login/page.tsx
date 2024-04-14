@@ -46,8 +46,6 @@ export default function Login() {
     validationSchema: loginFormSchema,
   });
 
-  console.log({ isLoading });
-
   return (
     <form
       onSubmit={handleSubmit}
