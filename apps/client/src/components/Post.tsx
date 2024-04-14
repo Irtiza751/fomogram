@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { useRequest } from "@client/hooks/useRequest";
 
 export function Post({ post }: { post: PostInterface }) {
-  const userId = +Cookies.get("userId");
+  const encodedUserId = Cookies.get("userId");
+  const userId = +window.atob(encodedUserId);
+
   const isLiked = post.likes.find((like) => like.userId === userId);
   const [like, setLike] = useState(Boolean(isLiked));
   const { post: request } = useRequest({
