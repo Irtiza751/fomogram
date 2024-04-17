@@ -12,6 +12,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { PostService } from './post.service';
 import { PostDto } from './dtos/post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { LikePostDto } from './dtos/like-post.dto';
 
 interface RequestObj {
   user: {
@@ -43,5 +44,10 @@ export class PostController {
   allPost(@Request() req: RequestObj) {
     const { id } = req.user;
     return this.post.findAll(id);
+  }
+
+  @Post('/like')
+  like(@Body() body: LikePostDto) {
+    return this.post.likePost(body);
   }
 }
