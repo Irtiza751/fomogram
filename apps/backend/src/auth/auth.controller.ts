@@ -35,6 +35,10 @@ export class AuthController {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
       });
+      res.cookie('userId', data.userId, {
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
       return data;
     } else {
       throw new UnprocessableEntityException('In correct email or password');
