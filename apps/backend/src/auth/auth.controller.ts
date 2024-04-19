@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Request,
   Res,
   UnprocessableEntityException,
   UseGuards,
@@ -12,6 +13,7 @@ import { CreateUserDTO } from './dtos/create-user.dto';
 import { LoginDto } from './dtos/login-dto';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
+import { RequestObj } from 'src/post/post.controller';
 
 @Controller('auth')
 export class AuthController {
@@ -49,5 +51,18 @@ export class AuthController {
   @Get('/profile')
   profile() {
     return { msg: 'Hi there' };
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('/logout')
+  logout(
+    @Request() req: RequestObj,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const userId = req.user.id;
+    console.log(userId);
+    res.clearCookie('sessionToken');
+    res.clearCookie('userId');
+    return this._auth.logout(userId);
   }
 }
