@@ -53,12 +53,18 @@ export class AuthService {
         expiresIn: '1w',
       });
       const res = await this.client.set(`${user.id}`, refreshToken);
-      return { token, res };
+      const userId = this.encode(String(user.id));
+      return { token, res, userId };
     }
     return null;
   }
-
+  
   async logout(userId: number) {
     return await this.client.del(`${userId}`);
+  }
+  
+  encode(data: string) {
+    const encoded = Buffer.from(data, 'utf-8').toString('base64');
+    return encoded;
   }
 }

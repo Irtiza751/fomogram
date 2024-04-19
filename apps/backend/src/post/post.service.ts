@@ -33,7 +33,29 @@ export class PostService {
     console.log(userId);
     return await this.prisma.post.findMany({
       orderBy: { createdAt: 'desc' },
-      include: { user: { select: { image: true, username: true } } },
+      include: {
+        user: { select: { image: true, username: true } },
+        likes: { select: { userId: true } },
+      },
+    });
+  }
+
+  async likePost(post: { userId: number; postId: number }) {
+    // find if is like already exist for a given post.
+    const alreadyLiked = await this.prisma.likes.findFirst({
+      where: {
+        postId: post.postId,
+        userId: post.userId,
+      },
+    });
+    // if the like does exist then delete it?
+    if (alreadyLiked) {
+      return await this.prisma.likes.delete({ where: { id: alreadyLiked.id } });
+    }
+
+    // if the like doesn't exist for the given post then create it.
+    return await this.prisma.likes.create({
+      data: post,
     });
   }
 }

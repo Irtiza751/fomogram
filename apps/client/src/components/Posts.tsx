@@ -11,6 +11,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
   user: User;
+  likes: Array<{ userId: number }>;
 }
 
 export interface User {
