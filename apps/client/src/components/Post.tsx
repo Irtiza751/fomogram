@@ -27,7 +27,7 @@ export function Post({ post }: { post: PostInterface }) {
   };
 
   return (
-    <div className="fomo-card grid grid-cols-8 gap-3 my-5">
+    <div className="fomo-card grid grid-cols-10 gap-1 my-5">
       <div className="fomo-thread relative">
         <Image
           src={post.user.image}
