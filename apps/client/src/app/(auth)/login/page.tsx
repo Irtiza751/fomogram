@@ -23,7 +23,7 @@ export default function Login() {
     endpoint: "/auth/login",
     onSuccess(data) {
       console.log(data);
-      router.push("/");
+      router.replace("/");
     },
     onError(error) {
       const { response } = error;
