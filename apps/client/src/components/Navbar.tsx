@@ -1,6 +1,4 @@
 import Image from "next/image";
-
-import { MenuIcon } from "@fomogram/ui";
 import { NavLinks } from "./NavLinks";
 
 export default function Navbar() {
@@ -16,9 +14,6 @@ export default function Navbar() {
             priority={true}
           />
           <NavLinks />
-          <button className="self-center text-stone-800/50">
-            <MenuIcon />
-          </button>
         </nav>
       </header>
     </>

@@ -14,7 +14,7 @@ import { PostDto } from './dtos/post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { LikePostDto } from './dtos/like-post.dto';
 
-interface RequestObj {
+export interface RequestObj {
   user: {
     id: number;
     iat: number;

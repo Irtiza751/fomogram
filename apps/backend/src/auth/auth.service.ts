@@ -58,7 +58,11 @@ export class AuthService {
     }
     return null;
   }
-
+  
+  async logout(userId: number) {
+    return await this.client.del(`${userId}`);
+  }
+  
   encode(data: string) {
     const encoded = Buffer.from(data, 'utf-8').toString('base64');
     return encoded;
