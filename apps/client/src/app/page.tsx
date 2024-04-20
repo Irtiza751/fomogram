@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@client/components/Navbar";
 import { Posts } from "@client/components/Posts";
 

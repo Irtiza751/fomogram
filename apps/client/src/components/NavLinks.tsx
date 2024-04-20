@@ -27,8 +27,10 @@ export function NavLinks() {
                   setShowDialog(true);
                 }
               }}
-              className={`block border-b-2 px-6 py-5 border-transparent hover:border-indigo-600 ${
-                pathname === link.path ? "border-indigo-600" : ""
+              className={`block border-b-2 px-6 py-5 hover:border-indigo-600 ${
+                pathname === link.path
+                  ? "border-indigo-600 text-indigo-600"
+                  : "border-transparent"
               }`}
             >
               {link.icon}
