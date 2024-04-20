@@ -29,7 +29,7 @@ export function NavLinks() {
         <NewPost closeDialog={() => setShowDialog(false)} />
       </Dialog>
 
-      <ul className="xl:flex lg:flex hidden gap-4 text-stone-800/50 -ml-24">
+      <ul className="col-span-2 lg:flex justify-center hidden gap-4 text-stone-800/50">
         {links.map((link, i) => (
           <li key={i}>
             <Link
@@ -49,7 +49,11 @@ export function NavLinks() {
           </li>
         ))}
       </ul>
-      <Button onClick={onLogout} variant="outline" className="self-center">
+      <Button
+        onClick={onLogout}
+        variant="outline"
+        className="justify-self-center lg:block hidden"
+      >
         Logout
       </Button>
     </>

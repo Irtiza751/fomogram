@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="container max-w-3xl">
+      <main className="container max-w-xl">
         <Posts />
       </main>
     </>
