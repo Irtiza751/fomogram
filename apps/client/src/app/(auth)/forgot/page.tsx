@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button, Input } from "@fomogram/ui";
 import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
+import { fomo } from "@client/api/fomo";
 
 const forgotSchema = object({
   email: string().email("Invalid email").required("Email is required"),
@@ -12,7 +13,13 @@ type Email = InferType<typeof forgotSchema>;
 
 export default function Forgot() {
   const onSubmit = async (email: Email) => {
-    console.log(email);
+    try {
+      console.log(email);
+      const { data } = await fomo.post("/auth/reset", email);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({
