@@ -1,35 +1,22 @@
 "use client";
-
 import Link from "next/link";
 import { links } from "@client/data/links";
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "@fomogram/ui";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import NewPost from "./NewPost";
 
 import { Dialog } from "@fomogram/ui";
-import { fomo } from "@client/api/fomo";
 
 export function NavLinks() {
-  const router = useRouter();
   const pathname = usePathname();
   const [showDialog, setShowDialog] = useState(false);
-
-  const onLogout = async () => {
-    console.log("logging out...");
-    const { data } = await fomo.get("/auth/logout");
-    if (data) {
-      router.replace("/login");
-    }
-  };
 
   return (
     <>
       <Dialog show={showDialog} onClose={() => setShowDialog(false)}>
         <NewPost closeDialog={() => setShowDialog(false)} />
       </Dialog>
-
-      <ul className="xl:flex lg:flex hidden gap-4 text-stone-800/50 -ml-24">
+      <ul className="flex lg:gap-4 justify-center text-stone-800/50">
         {links.map((link, i) => (
           <li key={i}>
             <Link
@@ -40,8 +27,10 @@ export function NavLinks() {
                   setShowDialog(true);
                 }
               }}
-              className={`block border-b-2 px-6 py-5 border-transparent hover:border-indigo-600 ${
-                pathname === link.path ? "border-indigo-600" : ""
+              className={`block border-b-2 px-6 py-5 hover:border-indigo-600 ${
+                pathname === link.path
+                  ? "border-indigo-600 text-indigo-600"
+                  : "border-transparent"
               }`}
             >
               {link.icon}
@@ -49,9 +38,6 @@ export function NavLinks() {
           </li>
         ))}
       </ul>
-      <Button onClick={onLogout} variant="outline" className="self-center">
-        Logout
-      </Button>
     </>
   );
 }
