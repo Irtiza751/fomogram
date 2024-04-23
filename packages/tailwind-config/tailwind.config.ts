@@ -5,7 +5,7 @@ const config = {
     extend: {
       container: {
         center: true,
-        padding: "5rem",
+        padding: "1rem",
         fontFamily: {
           sans: ["Inter", ...defaultTheme.fontFamily.sans],
         },

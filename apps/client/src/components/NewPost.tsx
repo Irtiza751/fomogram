@@ -9,6 +9,8 @@ type NewpostProps = {
   closeDialog(): void;
 };
 
+const ALLOWED_MIMES = "image/png, image/gif, image/jpeg, video/mp4";
+
 export default function NewPost({ closeDialog }: NewpostProps) {
   const router = useRouter();
   const [file, setFile] = useState<File>();
@@ -81,6 +83,7 @@ export default function NewPost({ closeDialog }: NewpostProps) {
                 type="file"
                 id="image"
                 onChange={uploadImage}
+                accept={ALLOWED_MIMES}
               />
               <button title="Add tags" type="button">
                 <HashIcon size={18} color="#999999" />

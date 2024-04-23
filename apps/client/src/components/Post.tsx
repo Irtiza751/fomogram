@@ -27,12 +27,12 @@ export function Post({ post }: { post: PostInterface }) {
   };
 
   return (
-    <div className="fomo-card grid grid-cols-12 gap-3 my-5">
+    <div className="fomo-card grid grid-cols-10 gap-1 my-5">
       <div className="fomo-thread relative">
         <Image
           src={post.user.image}
           alt="Muhammad Irtiza"
-          className="rounded-full ring-2 ring-offset-1 ring-slate-200"
+          className="relative rounded-full ring-2 ring-offset-1 ring-slate-200"
           width={40}
           height={40}
         />
