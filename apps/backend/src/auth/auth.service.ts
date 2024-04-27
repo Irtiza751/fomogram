@@ -58,11 +58,21 @@ export class AuthService {
     }
     return null;
   }
-  
+
   async logout(userId: number) {
     return await this.client.del(`${userId}`);
   }
-  
+
+  async resetPassword({ email }: { email: string }) {
+    const mailData = {
+      to: email,
+      from: 'noreply@fomogram.app',
+      subject: 'Reset password',
+      text: 'Hi, <username> \n We have received a request to reset your password',
+    };
+    return mailData;
+  }
+
   encode(data: string) {
     const encoded = Buffer.from(data, 'utf-8').toString('base64');
     return encoded;

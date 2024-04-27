@@ -14,6 +14,7 @@ import { LoginDto } from './dtos/login-dto';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
 import { RequestObj } from 'src/post/post.controller';
+import { ResetDto } from './dtos/reset.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -64,5 +65,10 @@ export class AuthController {
     res.clearCookie('sessionToken');
     res.clearCookie('userId');
     return this._auth.logout(userId);
+  }
+
+  @Post('/reset')
+  resetPassword(@Body() body: ResetDto) {
+    return this._auth.resetPassword(body);
   }
 }
