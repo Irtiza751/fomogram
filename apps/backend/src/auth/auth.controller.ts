@@ -15,10 +15,14 @@ import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
 import { RequestObj } from 'src/post/post.controller';
 import { ResetDto } from './dtos/reset.dto';
+import { EmailService } from 'src/email/email.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly _auth: AuthService) {}
+  constructor(
+    private readonly _auth: AuthService,
+    private readonly email: EmailService,
+  ) {}
 
   @Post('/register')
   register(@Body() body: CreateUserDTO) {
@@ -70,5 +74,10 @@ export class AuthController {
   @Post('/reset')
   resetPassword(@Body() body: ResetDto) {
     return this._auth.resetPassword(body);
+  }
+
+  @Get('/reset')
+  sendMail() {
+    return this.email.send();
   }
 }
