@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="container max-w-xl">
+      <main className="max-w-xl mx-auto">
         <Posts />
       </main>
     </>
