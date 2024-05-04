@@ -4,12 +4,10 @@ import { AuthService } from './auth.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
 import { RedisService } from 'src/redis/redis.service';
-import { EmailModule } from 'src/email/email.module';
 
 @Module({
   imports: [
     PrismaModule,
-    EmailModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,

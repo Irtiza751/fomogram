@@ -15,14 +15,10 @@ import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
 import { RequestObj } from 'src/post/post.controller';
 import { ResetDto } from './dtos/reset.dto';
-import { EmailService } from 'src/email/email.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly _auth: AuthService,
-    private readonly email: EmailService,
-  ) {}
+  constructor(private readonly _auth: AuthService) {}
 
   @Post('/register')
   register(@Body() body: CreateUserDTO) {
@@ -78,6 +74,7 @@ export class AuthController {
 
   @Get('/reset')
   sendMail() {
-    return this.email.send();
+    // return this.email.send();
+    return { msg: 'Main sent!' };
   }
 }
