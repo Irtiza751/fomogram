@@ -14,6 +14,8 @@ import { LoginDto } from './dtos/login-dto';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
 import { RequestObj } from 'src/post/post.controller';
+import { ResetDto } from './dtos/reset.dto';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -60,9 +62,18 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const userId = req.user.id;
-    console.log(userId);
     res.clearCookie('sessionToken');
     res.clearCookie('userId');
     return this._auth.logout(userId);
+  }
+
+  @Post('/reset')
+  sendResetMail(@Body() body: ResetDto) {
+    return this._auth.sendResetMail(body);
+  }
+
+  @Post('/update-password')
+  updatePassword(@Body() body: UpdatePasswordDto) {
+    return this._auth.updatePassword(body);
   }
 }
