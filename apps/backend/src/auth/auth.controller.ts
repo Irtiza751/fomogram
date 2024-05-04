@@ -71,10 +71,4 @@ export class AuthController {
   resetPassword(@Body() body: ResetDto) {
     return this._auth.resetPassword(body);
   }
-
-  @Get('/reset')
-  sendMail() {
-    // return this.email.send();
-    return { msg: 'Main sent!' };
-  }
 }

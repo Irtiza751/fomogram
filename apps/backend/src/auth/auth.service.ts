@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { RedisService } from 'src/redis/redis.service';
+import { EmailService } from 'src/email/email.service';
 
 export type User = {
   username: string;
@@ -19,6 +20,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly jwt: JwtService,
     private readonly redis: RedisService,
+    private readonly email: EmailService,
   ) {}
 
   client = this.redis.getClient();
@@ -66,11 +68,11 @@ export class AuthService {
   async resetPassword({ email }: { email: string }) {
     const mailData = {
       to: email,
-      from: 'noreply@fomogram.app',
+      from: 'muhammad.irtiza751@gmail.com',
       subject: 'Reset password',
       text: 'Hi, <username> \n We have received a request to reset your password',
     };
-    return mailData;
+    return this.email.send(mailData);
   }
 
   encode(data: string) {
