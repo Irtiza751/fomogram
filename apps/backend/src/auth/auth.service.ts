@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { RedisService } from 'src/redis/redis.service';
-import { EmailService } from 'src/email/email.service';
+import { EmailService, MailData } from 'src/email/email.service';
 
 export type User = {
   username: string;
@@ -66,13 +66,29 @@ export class AuthService {
   }
 
   async resetPassword({ email }: { email: string }) {
-    const mailData = {
-      to: email,
-      from: 'muhammad.irtiza751@gmail.com',
-      subject: 'Reset password',
-      text: 'Hi, <username> \n We have received a request to reset your password',
-    };
-    return this.email.send(mailData);
+    const resetUrl = process.env.RESET_PASSWORD_URL;
+    const user = await this.prisma.user.findUnique({ where: { email } });
+
+    console.log(resetUrl);
+
+    if (user) {
+      const mailData: MailData = {
+        to: email,
+        from: 'muhammad.irtiza751@gmail.com',
+        subject: 'Reset password',
+        html: `
+        <h3>Hi, ${user.username}</h3>
+        <p>We have received a request to reset your password</p>
+        <p>Trouble singing in? click bellow button & update your password.</p>
+        <button>
+          <a href="${resetUrl}/${user.id}">Reset Password</a>
+        </button>
+        `,
+      };
+      return this.email.send(mailData);
+    } else {
+      throw new ForbiddenException('User does not exist');
+    }
   }
 
   encode(data: string) {

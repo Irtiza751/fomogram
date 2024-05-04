@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as SendGrid from '@sendgrid/mail';
 
+export type MailData = SendGrid.MailDataRequired;
+
 @Injectable()
 export class EmailService {
   constructor() {
