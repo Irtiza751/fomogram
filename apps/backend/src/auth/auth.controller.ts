@@ -15,6 +15,7 @@ import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
 import { RequestObj } from 'src/post/post.controller';
 import { ResetDto } from './dtos/reset.dto';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -68,7 +69,12 @@ export class AuthController {
   }
 
   @Post('/reset')
-  resetPassword(@Body() body: ResetDto) {
-    return this._auth.resetPassword(body);
+  sendResetMail(@Body() body: ResetDto) {
+    return this._auth.sendResetMail(body);
+  }
+
+  @Post('/update-password')
+  updatePassword(@Body() body: UpdatePasswordDto) {
+    return this._auth.updatePassword(body);
   }
 }
