@@ -62,7 +62,6 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const userId = req.user.id;
-    console.log(userId);
     res.clearCookie('sessionToken');
     res.clearCookie('userId');
     return this._auth.logout(userId);

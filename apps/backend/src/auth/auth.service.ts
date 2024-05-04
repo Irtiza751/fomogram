@@ -73,8 +73,6 @@ export class AuthService {
     const resetUrl = process.env.RESET_PASSWORD_URL;
     const user = await this.prisma.user.findUnique({ where: { email } });
 
-    console.log(resetUrl);
-
     if (user) {
       const userId = this.encode(String(user.id));
 

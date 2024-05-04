@@ -17,7 +17,6 @@ export default function Forgot() {
 
   const onSubmit = async (email: Email) => {
     try {
-      console.log(email);
       const { data } = await fomo.post("/auth/reset", email);
       if (data) {
         setSuccess(true);

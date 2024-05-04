@@ -6,7 +6,6 @@ export type MailData = SendGrid.MailDataRequired;
 @Injectable()
 export class EmailService {
   constructor() {
-    console.log('key: ', process.env.SENDGRID_API_KEY);
     SendGrid.setApiKey(process.env.SENDGRID_API_KEY);
   }
 

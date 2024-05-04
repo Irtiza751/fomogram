@@ -16,10 +16,8 @@ export default function Register() {
   const router = useRouter();
 
   const onSubmit = async (values: InferType<typeof registerSchema>) => {
-    console.log(values);
     try {
-      const { data } = await fomo.post("/auth/register", values);
-      console.log("register", data);
+      await fomo.post("/auth/register", values);
       router.push("/login");
     } catch (error) {
       console.log(error);
