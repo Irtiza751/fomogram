@@ -21,9 +21,8 @@ export default function Login() {
 
   const { isLoading, post } = useRequest({
     endpoint: "/auth/login",
-    onSuccess(data) {
-      console.log(data);
-      router.replace("/", { scroll: false });
+    onSuccess() {
+      router.replace("/");
     },
     onError(error) {
       const { response } = error;
