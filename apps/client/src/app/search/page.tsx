@@ -39,7 +39,10 @@ export default function page() {
         </form>
         <div className="mt-10">
           {users.map((user) => (
-            <div className="flex items-start gap-3 mb-4 border p-3 rounded-lg">
+            <div
+              key={user.id}
+              className="flex items-start gap-3 mb-4 border p-3 rounded-lg"
+            >
               <Image
                 src={user.image}
                 alt={user.username}
