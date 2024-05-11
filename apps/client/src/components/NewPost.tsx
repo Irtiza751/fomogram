@@ -1,8 +1,9 @@
 import { useRequest } from "@client/hooks/useRequest";
+import { AuthContext, AuthContextType } from "@client/providers/auth";
 import { Button } from "@fomogram/ui";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import {
   Hash as HashIcon,
   Image as ImageIcon,
@@ -18,6 +19,7 @@ const ALLOWED_MIMES = "image/png, image/gif, image/jpeg, video/mp4";
 export default function NewPost({ closeDialog }: NewpostProps) {
   const router = useRouter();
   const [file, setFile] = useState<File>();
+  const { auth } = useContext(AuthContext) as AuthContextType;
 
   const { isLoading, post } = useRequest({
     endpoint: "/post/create",
@@ -55,14 +57,14 @@ export default function NewPost({ closeDialog }: NewpostProps) {
     >
       <div className="flex items-start gap-3">
         <Image
-          src="/imgs/avatar.jpeg"
-          alt="Muhammad Irtiza"
+          src={auth?.image || "/imgs/avatar.jpeg"}
+          alt={auth?.username || ""}
           className="rounded-full ring-2 ring-offset-1 ring-slate-200"
           width={40}
           height={40}
         />
         <div className="w-full">
-          <p className="font-semibold">Muhammad Irtiza</p>
+          <p className="font-semibold">{auth?.username || "Username"}</p>
           <input
             name="caption"
             className="w-full outline-none resize-none h-auto mb-3"

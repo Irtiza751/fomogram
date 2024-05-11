@@ -2,13 +2,13 @@ import { fomo } from "@client/api/fomo";
 import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 
-type Config = {
+type Config<ResponseType = {}> = {
   endpoint: string;
-  onSuccess: (res: AxiosResponse<any>) => void;
+  onSuccess: (res: ResponseType) => void;
   onError?: (error: AxiosError<any>) => void;
 };
 
-export function useRequest<T = {}>(config: Config) {
+export function useRequest<T = {}>(config: Config<T>) {
   const { endpoint, onSuccess, onError = () => {} } = config;
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<T>();
