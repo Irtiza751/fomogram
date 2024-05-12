@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Heart, MessageCircle, Repeat, Send } from "react-feather";
-import { Post as PostInterface } from "./Posts";
+import { Post as PostInterface } from "@client/app/page";
 import { Cookies } from "@client/lib/Cookies";
 import { useState } from "react";
 import { useRequest } from "@client/hooks/useRequest";
+import Link from "next/link";
 
 export function Post({ post }: { post: PostInterface }) {
   const encodedUserId = Cookies.get("userId");
@@ -38,7 +39,9 @@ export function Post({ post }: { post: PostInterface }) {
         />
       </div>
       <figure className={`col-start-2 col-span-full space-y-2`}>
-        <span className="font-bold">{post.user.username}</span>
+        <Link href={`/profile/${post.user.username}`}>
+          <span className="font-bold">{post.user.username}</span>
+        </Link>
         {/* content */}
         <figcaption>{post.caption}</figcaption>
         {/* post iamge it's conditional */}
