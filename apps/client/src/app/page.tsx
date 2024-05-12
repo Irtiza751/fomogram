@@ -3,8 +3,6 @@ import Navbar from "@client/components/Navbar";
 // import { Posts } from "@client/components/Posts";
 import { Post, Skeleton } from "@client/components/Post";
 import { useFetch } from "@client/hooks/useFetch";
-import { Button } from "@fomogram/ui";
-import { Edit2, Edit3 } from "react-feather";
 
 export interface Post {
   id: number;
