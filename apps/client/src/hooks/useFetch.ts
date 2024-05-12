@@ -30,5 +30,5 @@ export function useFetch<T = {}>(config: Config) {
     fetch();
   }, []);
 
-  return { isLoading, data } as const;
+  return { isLoading, data, fetch } as const;
 }
