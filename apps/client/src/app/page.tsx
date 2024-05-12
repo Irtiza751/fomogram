@@ -3,6 +3,8 @@ import Navbar from "@client/components/Navbar";
 // import { Posts } from "@client/components/Posts";
 import { Post, Skeleton } from "@client/components/Post";
 import { useFetch } from "@client/hooks/useFetch";
+import { Button } from "@fomogram/ui";
+import { Edit2, Edit3 } from "react-feather";
 
 export interface Post {
   id: number;
@@ -38,6 +40,13 @@ export default function Home() {
           posts?.map((post) => <Post key={post.id} post={post} />)
         )}
       </main>
+      {/* <Button
+        variant="outline"
+        className="rounded-full fixed bottom-24 left-24"
+      >
+        <Edit3 size={16} />
+        <span className="ml-2">Quick Post</span>
+      </Button> */}
     </>
   );
 }
