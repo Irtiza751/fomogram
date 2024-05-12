@@ -24,6 +24,7 @@ export class UserService {
     return this.prisma.user.findMany({
       where: term ? where : {},
       select: {
+        id: true,
         username: true,
         email: true,
         image: true,
