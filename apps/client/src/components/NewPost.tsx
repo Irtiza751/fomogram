@@ -3,7 +3,11 @@ import { Button } from "@fomogram/ui";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
+import {
+  Hash as HashIcon,
+  Image as ImageIcon,
+  X as CloseIcon,
+} from "react-feather";
 
 type NewpostProps = {
   closeDialog(): void;
@@ -39,6 +43,11 @@ export default function NewPost({ closeDialog }: NewpostProps) {
     }
   };
 
+  const removeImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setFile(undefined);
+  };
+
   return (
     <form
       className="bg-white rounded-lg p-6 outline-none"
@@ -60,13 +69,21 @@ export default function NewPost({ closeDialog }: NewpostProps) {
             placeholder="Start the Fomo"
           />
           {file && (
-            <Image
-              className="rounded-md mb-3 outline-2"
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              width={400}
-              height={600}
-            />
+            <div className="relative inline-block">
+              <button
+                onClick={removeImage}
+                className="absolute text-white bg-black/75 p-1 rounded-full right-2 top-2"
+              >
+                <CloseIcon size={16} />
+              </button>
+              <Image
+                className="rounded-md mb-3 outline-2"
+                src={URL.createObjectURL(file)}
+                alt={file.name}
+                width={400}
+                height={600}
+              />
+            </div>
           )}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
