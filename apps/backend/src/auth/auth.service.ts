@@ -57,7 +57,8 @@ export class AuthService {
       });
       const res = await this.client.set(`${user.id}`, refreshToken);
       const userId = this.encode(String(user.id));
-      return { token, res, userId };
+      const { username, email, image } = user;
+      return { token, res, userId, username, email, image };
     }
     return null;
   }
