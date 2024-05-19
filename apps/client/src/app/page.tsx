@@ -1,8 +1,5 @@
-"use client";
-import Navbar from "@client/components/Navbar";
-// import { Posts } from "@client/components/Posts";
-import { Post, Skeleton } from "@client/components/Post";
-import { useFetch } from "@client/hooks/useFetch";
+import Image from "next/image";
+import Link from "next/link";
 
 export interface Post {
   id: number;
@@ -21,30 +18,11 @@ export interface User {
 }
 
 export default function Home() {
-  const { data: posts, isLoading } = useFetch<Post[]>({
-    endpoint: "/post/allposts",
-  });
+  console.log(`Root route!`);
 
   return (
-    <>
-      <Navbar />
-      <main className="max-w-xl mx-auto">
-        {isLoading ? (
-          <>
-            <Skeleton />
-            <Skeleton />
-          </>
-        ) : (
-          posts?.map((post) => <Post key={post.id} post={post} />)
-        )}
-      </main>
-      {/* <Button
-        variant="outline"
-        className="rounded-full fixed bottom-24 left-24"
-      >
-        <Edit3 size={16} />
-        <span className="ml-2">Quick Post</span>
-      </Button> */}
-    </>
+    <main className="max-w-xl mx-auto py-4">
+      <h1>Root route / Landing page</h1>
+    </main>
   );
 }
