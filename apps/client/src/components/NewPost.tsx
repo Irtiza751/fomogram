@@ -1,9 +1,14 @@
 import { useRequest } from "@client/hooks/useRequest";
+import { AuthContext, AuthContextType } from "@client/providers/auth";
 import { Button } from "@fomogram/ui";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { Hash as HashIcon, Image as ImageIcon } from "react-feather";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import {
+  Hash as HashIcon,
+  Image as ImageIcon,
+  X as CloseIcon,
+} from "react-feather";
 
 type NewpostProps = {
   closeDialog(): void;
@@ -14,6 +19,7 @@ const ALLOWED_MIMES = "image/png, image/gif, image/jpeg, video/mp4";
 export default function NewPost({ closeDialog }: NewpostProps) {
   const router = useRouter();
   const [file, setFile] = useState<File>();
+  const { auth } = useContext(AuthContext) as AuthContextType;
 
   const { isLoading, post } = useRequest({
     endpoint: "/post/create",
@@ -39,6 +45,11 @@ export default function NewPost({ closeDialog }: NewpostProps) {
     }
   };
 
+  const removeImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setFile(undefined);
+  };
+
   return (
     <form
       className="bg-white rounded-lg p-6 outline-none"
@@ -46,27 +57,35 @@ export default function NewPost({ closeDialog }: NewpostProps) {
     >
       <div className="flex items-start gap-3">
         <Image
-          src="/imgs/avatar.jpeg"
-          alt="Muhammad Irtiza"
+          src={auth?.image || "/imgs/avatar.jpeg"}
+          alt={auth?.username || ""}
           className="rounded-full ring-2 ring-offset-1 ring-slate-200"
           width={40}
           height={40}
         />
         <div className="w-full">
-          <p className="font-semibold">Muhammad Irtiza</p>
+          <p className="font-semibold">{auth?.username || "Username"}</p>
           <input
             name="caption"
             className="w-full outline-none resize-none h-auto mb-3"
             placeholder="Start the Fomo"
           />
           {file && (
-            <Image
-              className="rounded-md mb-3 outline-2"
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              width={400}
-              height={600}
-            />
+            <div className="relative inline-block">
+              <button
+                onClick={removeImage}
+                className="absolute text-white bg-black/75 p-1 rounded-full right-2 top-2"
+              >
+                <CloseIcon size={16} />
+              </button>
+              <Image
+                className="rounded-md mb-3 outline-2"
+                src={URL.createObjectURL(file)}
+                alt={file.name}
+                width={400}
+                height={600}
+              />
+            </div>
           )}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">

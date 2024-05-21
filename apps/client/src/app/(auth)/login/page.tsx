@@ -5,8 +5,13 @@ import { useFormik } from "formik";
 import { InferType, object, string } from "yup";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, XCircle } from "react-feather";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRequest } from "@client/hooks/useRequest";
+import {
+  AuthContext,
+  AuthContextType,
+  LoginResponse,
+} from "@client/providers/auth";
 
 const loginFormSchema = object({
   email: string().email("Invalid email").required("Email is required"),
@@ -18,10 +23,11 @@ type Credentials = InferType<typeof loginFormSchema>;
 export default function Login() {
   const [show, setShow] = useState(false);
   const [error, showError] = useState<string>("");
+  const { setAuth } = useContext(AuthContext) as AuthContextType;
 
-  const { isLoading, post } = useRequest({
+  const { isLoading, post } = useRequest<LoginResponse>({
     endpoint: "/auth/login",
-    onSuccess() {
+    onSuccess(data) {
       console.log(`loading home page...`);
       router.push("/feeds");
     },
