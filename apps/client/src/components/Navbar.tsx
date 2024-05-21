@@ -1,18 +1,28 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@fomogram/ui";
+import { Button, Dialog, Spinner } from "@fomogram/ui";
 import { fomo } from "@client/api/fomo";
 import { useRouter } from "next/navigation";
 import { NavLinks } from "./NavLinks";
+import { useState } from "react";
 
 export default function Navbar() {
   const router = useRouter();
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onLogout = async () => {
-    console.log("logging out...");
-    const { data } = await fomo.get("/auth/logout");
-    if (data) {
-      router.replace("/login");
+    try {
+      setLoading(true);
+      console.log("logging out...");
+      const { data } = await fomo.get("/auth/logout");
+      if (data) {
+        router.replace("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,13 +41,36 @@ export default function Navbar() {
           <div className="col-span-2 lg:block hidden">
             <NavLinks />
           </div>
+
           <Button
-            onClick={onLogout}
+            onClick={() => setShowConfirm(true)}
             variant="outline"
             className="justify-self-center lg:block hidden"
           >
             Logout
           </Button>
+
+          <Dialog show={showConfirm} onClose={() => setShowConfirm(false)}>
+            <div className="bg-white max-w-sm mx-auto rounded-lg">
+              <p className="text-lg text-center py-4">
+                Are you sure you want logout?
+              </p>
+              <div className="grid grid-cols-2 border-t">
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="py-3 rounded-bl-lg bg-stone-100 hover:bg-stone-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onLogout}
+                  className="py-3 bg-red-500 hover:bg-red-600 rounded-br-lg text-white flex justify-center"
+                >
+                  {loading ? <Spinner /> : "Yes"}
+                </button>
+              </div>
+            </div>
+          </Dialog>
         </nav>
       </header>
     </>

@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Heart, MessageCircle, Repeat, Send } from "react-feather";
-import { Post as PostInterface } from "./Posts";
+import { Post as PostInterface } from "@client/app/page";
 import { Cookies } from "@client/lib/Cookies";
 import { useState } from "react";
 import { useRequest } from "@client/hooks/useRequest";
+import Link from "next/link";
 
 export function Post({ post }: { post: PostInterface }) {
   const encodedUserId = Cookies.get("userId");
@@ -38,7 +39,9 @@ export function Post({ post }: { post: PostInterface }) {
         />
       </div>
       <figure className={`col-start-2 col-span-full space-y-2`}>
-        <span className="font-bold">{post.user.username}</span>
+        <Link href={`/profile/${post.user.username}`}>
+          <span className="font-bold">{post.user.username}</span>
+        </Link>
         {/* content */}
         <figcaption>{post.caption}</figcaption>
         {/* post iamge it's conditional */}
@@ -75,3 +78,22 @@ export function Post({ post }: { post: PostInterface }) {
     </div>
   );
 }
+
+export const Skeleton = () => {
+  return (
+    <div className="rounded-md p-4 w-full mx-auto mb-5">
+      <div className="animate-pulse flex space-x-4">
+        <div className="rounded-full bg-slate-200 h-10 w-10"></div>
+        <div className="flex-1 space-y-6 py-1">
+          <div className="space-y-3">
+            <div className="h-2 bg-slate-200 rounded"></div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-200 rounded col-span-2"></div>
+            </div>
+          </div>
+          <div className="h-96 bg-slate-200 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+};

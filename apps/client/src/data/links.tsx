@@ -18,7 +18,7 @@ export const links = [
     icon: <Heart />,
   },
   {
-    path: "/profile",
+    path: "/profile/Muhammad Irtiza",
     icon: <User />,
   },
 ];
