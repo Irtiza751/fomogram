@@ -28,8 +28,8 @@ export default function Login() {
   const { isLoading, post } = useRequest<LoginResponse>({
     endpoint: "/auth/login",
     onSuccess(data) {
-      setAuth(data);
-      router.replace("/");
+      console.log(`loading home page...`);
+      router.push("/feeds");
     },
     onError(error) {
       const { response } = error;
