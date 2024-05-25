@@ -12,21 +12,6 @@ const config: Config = {
     fontFamily: {
       sans: ["Inter"],
     },
-    animation: {
-      fadein: "fadein 1s ease-in 1",
-    },
-    keyframes: {
-      fadein: {
-        "0%": {
-          opacity: "0",
-          transform: "scale(0.6)",
-        },
-        "100%": {
-          opacity: "1",
-          transform: "scale(1)",
-        },
-      },
-    },
   },
 };
 export default config;

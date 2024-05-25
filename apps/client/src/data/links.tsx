@@ -2,7 +2,7 @@ import { Home, Edit, Search, User, Heart } from "react-feather";
 
 export const links = [
   {
-    path: "/",
+    path: "/feeds",
     icon: <Home />,
   },
   {
