@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Navbar from "@client/components/Navbar";
 import ProfileGroup from "@client/components/Followers";
-import { Button, Tabs } from "@fomogram/ui";
+import { Button } from "@fomogram/ui";
 // import { Metadata } from "next";
 import { useFetch } from "@client/hooks/useFetch";
 import { Profile as ProfileType } from "./types";
+import { ProfileTabs } from "@client/components/ProfileTabs";
 
 // export const metadata: Metadata = {
 //   title: "Fomogram | Profile",
@@ -40,18 +41,18 @@ export default function Profile() {
           <>
             <div className="flex justify-between items-cente">
               <div>
-                <h5 className="text-2xl font-bold">{data?.username}</h5>
-                <p>{data?.email}</p>
+                <h5 className="text-2xl font-bold">{data.username}</h5>
+                <p>{data.email}</p>
               </div>
               <Image
                 width={75}
                 height={75}
-                alt={data?.username || ""}
-                src={data?.image || ""}
+                alt={data.username}
+                src={data.image}
                 className="rounded-full ring-2 ring-offset-2 ring-blue-600 cursor-pointer"
               />
             </div>
-            <p className="bio mt-2">{data?.bio}</p>
+            {data.bio && <p className="bio mt-2">{data.bio}</p>}
 
             <ProfileGroup followers={followers} />
 
@@ -59,26 +60,7 @@ export default function Profile() {
               Edit Profile
             </Button>
 
-            <Tabs />
-
-            <div className="tab-wrapper">
-              <nav className="relative z-0 flex" role="tablist">
-                <button className="flex-1 py-2 border-b-2 border-blue-600">
-                  Posts
-                </button>
-                <button className="flex-1 py-2 border-b-2 hover:border-blue-600/50">
-                  Comments
-                </button>
-                <button className="flex-1 py-2 border-b-2 hover:border-blue-600/50">
-                  Reposts
-                </button>
-              </nav>
-              <div className="tabs mt-3">
-                <div className="grid place-items-center h-80 w-full">
-                  <Button>Create a new Post</Button>
-                </div>
-              </div>
-            </div>
+            <ProfileTabs />
           </>
         )}
       </main>

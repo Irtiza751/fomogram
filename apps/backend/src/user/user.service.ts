@@ -56,7 +56,7 @@ export class UserService {
         bio: true,
         image: true,
         followers: true,
-        posts: true,
+        // posts: true,
       },
     });
     return user;
