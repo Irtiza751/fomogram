@@ -52,21 +52,21 @@ export default function Navbar() {
 
           <Dialog show={showConfirm} onClose={() => setShowConfirm(false)}>
             <div className="bg-white max-w-sm mx-auto rounded-lg">
-              <p className="text-lg text-center py-4">
+              <p className="text-lg text-center py-4 font-semibold mb-2">
                 Are you sure you want logout?
               </p>
               <div className="grid grid-cols-2 border-t">
                 <button
-                  onClick={() => setShowConfirm(false)}
-                  className="py-3 rounded-bl-lg bg-stone-100 hover:bg-stone-200"
-                >
-                  Cancel
-                </button>
-                <button
                   onClick={onLogout}
-                  className="py-3 bg-red-500 hover:bg-red-600 rounded-br-lg text-white flex justify-center"
+                  className="py-3 bg-red-500 hover:bg-red-600 rounded-bl-lg text-white flex justify-center"
                 >
                   {loading ? <Spinner /> : "Yes"}
+                </button>
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="py-3 rounded-be-lg rounded-br-lg bg-stone-100 hover:bg-stone-200"
+                >
+                  Cancel
                 </button>
               </div>
             </div>
