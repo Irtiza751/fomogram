@@ -46,4 +46,19 @@ export class UserService {
   addFollower(data: FollowDto) {
     return this.prisma.followers.create({ data });
   }
+
+  userProfile(userId: number) {
+    const user = this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        username: true,
+        email: true,
+        bio: true,
+        image: true,
+        followers: true,
+        posts: true,
+      },
+    });
+    return user;
+  }
 }
