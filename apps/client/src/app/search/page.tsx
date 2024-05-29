@@ -3,6 +3,8 @@
 import Navbar from "@client/components/Navbar";
 import useDebounceCallback from "@client/hooks/useDebounceCallback";
 import { useFetch } from "@client/hooks/useFetch";
+import { useRequest } from "@client/hooks/useRequest";
+import { Cookies } from "@client/lib/Cookies";
 import { Button, Spinner } from "@fomogram/ui";
 import Image from "next/image";
 import { ChangeEvent } from "react";
@@ -13,6 +15,11 @@ type User = {
   username: string;
   email: string;
   image: string;
+  followers: Follower[];
+};
+
+type Follower = {
+  followerId: number;
 };
 
 export default function page() {
@@ -24,6 +31,13 @@ export default function page() {
     endpoint: "/user/search",
   });
 
+  const request = useRequest({
+    endpoint: "/user/follow",
+    onSuccess(data) {
+      console.log(data);
+    },
+  });
+
   const onSeach = async (e: ChangeEvent<HTMLInputElement>) => {
     // search term
     const term = e.target.value;
@@ -33,10 +47,18 @@ export default function page() {
 
   const debounceSearch = useDebounceCallback(onSeach, 600);
 
+  const onFollowPress = (user: User) => {
+    const encodedUserId = Cookies.get("userId");
+    const followerId = +window.atob(encodedUserId);
+    const { id: followingId } = user;
+    const payload = { followerId, followingId };
+    request.post(payload);
+  };
+
   return (
     <>
       <Navbar />
-      <main className="min-h-screen max-w-2xl mx-auto relative px-4">
+      <main className="min-h-screen max-w-xl mx-auto relative px-4">
         <form className="flex items-center ring-2 ring-zinc-200 focus-within:ring-indigo-700 px-4 py-1 rounded-xl sticky top-20 bg-white shadow-lg">
           <Search size={18} color="#a1a1aa" />
           <input
@@ -72,9 +94,12 @@ export default function page() {
                       <small>{0} followers</small>
                     </p>
                   </div>
-                  <Button variant="outline">
-                    {/* {user?.isFollowing ? "Following" : "Follow"} */}
-                    Folow
+                  <Button
+                    disabled={request.isLoading}
+                    variant="outline"
+                    onClick={() => onFollowPress(user)}
+                  >
+                    {user.followers.length > 0 ? "Following" : "Follow"}
                   </Button>
                 </div>
               </div>

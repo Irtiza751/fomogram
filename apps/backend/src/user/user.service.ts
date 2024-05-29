@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { FollowDto } from './dtos/follow.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  searchUser(term: string) {
+  searchUser(term: string, userId: number) {
     const where = {
       OR: [
         {
@@ -21,14 +22,28 @@ export class UserService {
       ],
     };
 
+    const elseWhere = {
+      id: { not: userId },
+    };
+
     return this.prisma.user.findMany({
-      where: term ? where : {},
+      where: term ? where : elseWhere,
       select: {
         id: true,
         username: true,
         email: true,
         image: true,
+        followers: {
+          select: { followerId: true },
+          where: {
+            followerId: userId,
+          },
+        },
       },
     });
+  }
+
+  addFollower(data: FollowDto) {
+    return this.prisma.followers.create({ data });
   }
 }
