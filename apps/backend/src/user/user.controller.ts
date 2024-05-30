@@ -27,4 +27,10 @@ export class UserController {
   follow(@Body() data: FollowDto) {
     return this.userSrv.addFollower(data);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('/profile')
+  profile(@Request() req: RequestObj) {
+    return this.userSrv.userProfile(req.user.id);
+  }
 }

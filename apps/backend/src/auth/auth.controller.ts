@@ -50,12 +50,6 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('/profile')
-  profile() {
-    return { msg: 'Hi there' };
-  }
-
-  @UseGuards(AuthGuard)
   @Get('/logout')
   logout(
     @Request() req: RequestObj,

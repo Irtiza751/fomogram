@@ -58,4 +58,27 @@ export class PostService {
       data: post,
     });
   }
+
+  async findMyPosts(userId: number) {
+    return await this.prisma.post.findMany({
+      orderBy: { createdAt: 'desc' },
+      where: {
+        userId,
+      },
+      select: {
+        id: true,
+        image: true,
+        caption: true,
+        createdAt: true,
+        user: {
+          select: {
+            username: true,
+            email: true,
+            image: true,
+          },
+        },
+        likes: true,
+      },
+    });
+  }
 }
