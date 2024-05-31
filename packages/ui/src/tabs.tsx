@@ -1,5 +1,12 @@
 "use client";
+import * as RadixTabs from "@radix-ui/react-tabs";
 
-export function Tabs() {
-  return <h1>Tab component</h1>;
-}
+const Tabs = RadixTabs.Root;
+
+const TabList = RadixTabs.List;
+
+const TabTrigger = RadixTabs.Trigger;
+
+const TabContent = RadixTabs.Content;
+
+export { Tabs, TabList, TabTrigger, TabContent };

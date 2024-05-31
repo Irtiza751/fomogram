@@ -50,4 +50,11 @@ export class PostController {
   like(@Body() body: LikePostDto) {
     return this.post.likePost(body);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('/myposts')
+  myPosts(@Request() req: RequestObj) {
+    const { id } = req.user;
+    return this.post.findMyPosts(id);
+  }
 }
