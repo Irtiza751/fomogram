@@ -25,7 +25,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Post('/follow')
   follow(@Body() data: FollowDto) {
-    return this.userSrv.addFollower(data);
+    return this.userSrv.addFollowerIfNot(data);
   }
 
   @UseGuards(AuthGuard)
