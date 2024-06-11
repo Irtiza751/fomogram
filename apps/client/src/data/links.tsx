@@ -14,7 +14,7 @@ export const links = [
     icon: <Edit />,
   },
   {
-    path: "/heart",
+    path: "/activities",
     icon: <Heart />,
   },
   {
