@@ -1,3 +1,4 @@
+import { ALLOWED_MIMES } from "@client/constants/mimes";
 import { useRequest } from "@client/hooks/useRequest";
 import { AuthContext, AuthContextType } from "@client/providers/auth";
 import { Button } from "@fomogram/ui";
@@ -13,8 +14,6 @@ import {
 type NewpostProps = {
   closeDialog(): void;
 };
-
-const ALLOWED_MIMES = "image/png, image/gif, image/jpeg, video/mp4";
 
 export default function NewPost({ closeDialog }: NewpostProps) {
   const router = useRouter();

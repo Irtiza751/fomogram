@@ -1,10 +1,17 @@
-"use client";
-
+import { Post as PostType } from "@client/app/feeds/page";
 import { useFetch } from "@client/hooks/useFetch";
-import { Button, TabContent, TabList, TabTrigger, Tabs } from "@fomogram/ui";
+import {
+  Button,
+  Spinner,
+  TabContent,
+  TabList,
+  TabTrigger,
+  Tabs,
+} from "@fomogram/ui";
+import { Post } from "./Post";
 
 export function ProfileTabs() {
-  const { data } = useFetch({
+  const { data, isLoading } = useFetch<PostType[]>({
     endpoint: "/post/myposts",
   });
 
@@ -31,8 +38,18 @@ export function ProfileTabs() {
         </TabTrigger>
       </TabList>
       <TabContent value="posts" className="p-4">
-        <div className="grid place-items-center min-h-[45vh]">
-          <Button>Create a new Post</Button>
+        <div
+          className={`min-h-[45vh] ${!data ? "grid place-items-center" : ""}`}
+        >
+          {isLoading ? (
+            <div className="text-indigo-700">
+              <Spinner size={40} />
+            </div>
+          ) : !data ? (
+            <Button>Create a new Post</Button>
+          ) : (
+            data.map((post) => <Post key={post.id} post={post} />)
+          )}
         </div>
       </TabContent>
       <TabContent value="comments" className="p-4">

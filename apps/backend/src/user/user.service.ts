@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FollowDto } from './dtos/follow.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cloudinary: CloudinaryService,
+  ) {}
 
   searchUser(term: string, userId: number) {
     const where = {
@@ -60,5 +65,32 @@ export class UserService {
       },
     });
     return user;
+  }
+
+  async updateProfile(
+    profileData: UpdateUserDto,
+    userId: number,
+    image: Express.Multer.File,
+  ) {
+    if (image) {
+      const imageResponse = await this.cloudinary.upload(image);
+      profileData.image = imageResponse.url;
+    }
+
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        bio: profileData?.bio,
+        username: profileData.username,
+        image: profileData.image,
+      },
+      select: {
+        bio: true,
+        username: true,
+        image: true,
+      },
+    });
   }
 }
