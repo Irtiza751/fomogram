@@ -99,7 +99,7 @@ export default function page() {
                     variant="outline"
                     onClick={() => onFollowPress(user)}
                   >
-                    {user.followers.length > 0 ? "Following" : "Follow"}
+                    {user.followers.length > 0 ? "Unfollow" : "Follow"}
                   </Button>
                 </div>
               </div>

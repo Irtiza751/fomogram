@@ -48,7 +48,26 @@ export class UserService {
     });
   }
 
-  addFollower(data: FollowDto) {
+  async addFollowerIfNot(data: FollowDto) {
+    const followings = await this.prisma.followers.findMany({
+      where: {
+        followerId: data.followerId,
+      },
+    });
+
+    const isFollowing = followings.find(
+      (following) => following.followingId === data.followingId,
+    );
+
+    console.log('already following: ', !!isFollowing);
+    if (isFollowing) {
+      return this.prisma.followers.delete({
+        where: {
+          id: isFollowing.id,
+        },
+      });
+    }
+
     return this.prisma.followers.create({ data });
   }
 

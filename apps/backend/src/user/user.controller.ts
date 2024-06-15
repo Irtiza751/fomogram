@@ -28,7 +28,7 @@ export class UserController {
 
   @Post('/follow')
   follow(@Body() data: FollowDto) {
-    return this.userSrv.addFollower(data);
+    return this.userSrv.addFollowerIfNot(data);
   }
 
   @Get('/profile')
