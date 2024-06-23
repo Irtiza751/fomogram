@@ -1,5 +1,9 @@
-import React from "react";
+import { Button } from "@fomogram/ui";
 
 export default function Activities() {
-  return <div>Activities</div>;
+  return (
+    <div className="container my-10">
+      <Button>Send Message</Button>
+    </div>
+  );
 }

@@ -7,9 +7,10 @@ import { RedisService } from './redis/redis.service';
 import { PostModule } from './post/post.module';
 import { EmailModule } from './email/email.module';
 import { UserModule } from './user/user.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, PostModule, EmailModule, UserModule],
+  imports: [AuthModule, PrismaModule, PostModule, EmailModule, UserModule, NotificationsModule],
   controllers: [AppController],
   providers: [AppService, RedisService],
 })
