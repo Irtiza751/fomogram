@@ -1,16 +1,9 @@
-"use client";
-
-import { SocketContext } from "@client/providers/notification";
-import { useContext, useEffect } from "react";
+import { Button } from "@fomogram/ui";
 
 export default function Activities() {
-  const socket = useContext(SocketContext);
-
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("connected!!!");
-    });
-  }, []);
-
-  return <div>Activities</div>;
+  return (
+    <div className="container my-10">
+      <Button>Send Message</Button>
+    </div>
+  );
 }
