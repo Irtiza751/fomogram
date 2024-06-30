@@ -10,7 +10,14 @@ import { UserModule } from './user/user.module';
 import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, PostModule, EmailModule, UserModule, NotificationsModule],
+  imports: [
+    AuthModule,
+    PrismaModule,
+    PostModule,
+    EmailModule,
+    UserModule,
+    NotificationsModule,
+  ],
   controllers: [AppController],
   providers: [AppService, RedisService],
 })
