@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { NotificationsGateway } from 'src/notifications/notifications.gateway';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 export interface Post {
@@ -13,6 +14,7 @@ export class PostService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
+    private readonly notifyGate: NotificationsGateway,
   ) {}
 
   async create(post: Post, file?: Express.Multer.File) {
@@ -54,9 +56,38 @@ export class PostService {
     }
 
     // if the like doesn't exist for the given post then create it.
-    return await this.prisma.likes.create({
-      data: post,
-    });
+    try {
+      const result = await this.prisma.likes.create({
+        data: post,
+      });
+      const likedPost = await this.prisma.post.findUnique({
+        where: {
+          id: result.postId,
+        },
+      });
+
+      /**
+       * @TODO
+       * 1. add the notification in the database
+       * 2. push the notification to the intended user
+       * 3. fetch all notifications on the activity page from client.
+       */
+      await this.prisma.notifications.create({
+        data: {
+          type: 'liked',
+          postId: result.postId,
+          producerId: result.userId,
+          receiverId: likedPost.userId,
+        },
+      });
+
+      // this.notifyGate.sendNotification({
+      //   msg: 'New notification',
+      // });
+      return result;
+    } catch (error) {
+      throw new BadRequestException('Bad request');
+    }
   }
 
   async findMyPosts(userId: number) {

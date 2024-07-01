@@ -25,29 +25,34 @@ model User {
   likes     Likes[]
   followers Followers[] @relation("follower")
   following Followers[] @relation("following")
+
+  receiverNotifications Notifications[] @relation("receiver")
+  producerNotifications Notifications[] @relation("producer")
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
-  userId    Int
-  caption   String
-  image     String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
-  comments  Comment[]
-  likes     Likes[]
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            Int             @id @default(autoincrement())
+  userId        Int
+  caption       String
+  image         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now()) @updatedAt
+  comments      Comment[]
+  likes         Likes[]
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notifications Notifications[]
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  postId    Int
-  text      String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id            Int             @id @default(autoincrement())
+  userId        Int
+  postId        Int
+  text          String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post          Post            @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now()) @updatedAt
+  notifications Notifications[]
 }
 
 model Likes {
@@ -67,4 +72,31 @@ model Followers {
   following User @relation("follower", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followingId])
+}
+
+model Notifications {
+  id      Int              @id @default(autoincrement())
+  is_read Boolean          @default(false)
+  type    NotificationType
+
+  receiverId Int
+  producerId Int
+
+  postId    Int?
+  commentId Int?
+
+  created_at DateTime @default(now())
+
+  receiver User @relation("receiver", fields: [receiverId], references: [id])
+  producer User @relation("producer", fields: [producerId], references: [id])
+
+  post    Post?    @relation(fields: [postId], references: [id])
+  comment Comment? @relation(fields: [commentId], references: [id])
+}
+
+enum NotificationType {
+  liked
+  commented
+  posted
+  followed
 }
