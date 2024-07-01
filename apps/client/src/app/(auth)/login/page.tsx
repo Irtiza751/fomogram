@@ -27,9 +27,9 @@ export default function Login() {
 
   const { isLoading, post } = useRequest<LoginResponse>({
     endpoint: "/auth/login",
-    onSuccess(data) {
+    onSuccess() {
       console.log(`loading home page...`);
-      router.push("/feeds");
+      router.push("/feeds", { scroll: false });
     },
     onError(error) {
       const { response } = error;

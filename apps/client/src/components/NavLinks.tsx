@@ -20,7 +20,7 @@ export function NavLinks() {
         {links.map((link, i) => (
           <li key={i}>
             <Link
-              scroll={link.path !== "/edit"}
+              scroll={false}
               href={link.path === "/edit" ? "#edit" : link.path}
               onClick={() => {
                 if (link.path === "/edit") {

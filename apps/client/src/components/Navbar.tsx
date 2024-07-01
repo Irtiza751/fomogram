@@ -17,7 +17,7 @@ export default function Navbar() {
       console.log("logging out...");
       const { data } = await fomo.get("/auth/logout");
       if (data) {
-        router.replace("/login");
+        router.push("/login", { scroll: false });
       }
     } catch (error) {
       console.log(error);
