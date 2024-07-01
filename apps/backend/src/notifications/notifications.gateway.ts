@@ -5,8 +5,8 @@ import {
 } from '@nestjs/websockets';
 
 import { Server } from 'socket.io';
-
-@WebSocketGateway(5000, {
+type NotificationData = string | Array<any> | Record<string, any>;
+@WebSocketGateway({
   cors: {
     origin: '*',
   },
@@ -15,10 +15,8 @@ export class NotificationsGateway {
   @WebSocketServer()
   server: Server;
 
-  sendNotification(from: string) {
-    this.server.emit('onNotification', {
-      msg: 'You have a new Notification from: ' + from,
-    });
+  sendNotification(data: NotificationData) {
+    this.server.emit('onNotification', { data });
   }
 
   @SubscribeMessage('message')
