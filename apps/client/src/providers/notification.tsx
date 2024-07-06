@@ -1,33 +1,41 @@
 "use client";
 
 import { createContext, useEffect } from "react";
-import { io, Socket } from "socket.io-client";
+import io from "socket.io-client";
 
-export const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "");
-export const SocketContext = createContext<Socket>(socket);
-export function SocketProvider({ children }: { children: React.ReactNode }) {
+type SocketProps = { children: React.ReactNode; userId?: string };
+
+export const SocketContext = createContext({});
+
+export function SocketProvider({ children, userId }: SocketProps) {
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Socket connected!");
-      // socket.emit("message", "hi, there?");
-    });
+    if (userId) {
+      console.log({ userId: +window.atob(userId) });
+      const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "", {
+        query: {
+          userId,
+        },
+      });
 
-    socket.on("connect_error", (err) => {
-      console.log("Connection Error: ", err);
-    });
+      socket.on("connect", () => {
+        console.log("connected!");
+      });
 
-    socket.on("onNotification", (data) => {
-      console.log("Notification received:", data);
-    });
+      socket.on("connect_error", (err) => {
+        console.log("Connection Error: ", err);
+      });
 
-    return () => {
-      socket.off("connect");
-      socket.off("connect_error");
-      socket.off("onNotification");
-    };
-  }, [socket]);
+      socket.on("onNotification", (data) => {
+        console.log("Notification received:", data);
+      });
 
-  return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
-  );
+      return () => {
+        socket.off("connect");
+        socket.off("connect_error");
+        socket.off("onNotification");
+      };
+    }
+  }, [userId]);
+
+  return <SocketContext.Provider value={{}}>{children}</SocketContext.Provider>;
 }

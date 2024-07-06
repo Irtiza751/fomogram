@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { NavLinks } from "@client/components/NavLinks";
 import { AuthProvider } from "@client/providers/auth";
 import { SocketProvider } from "@client/providers/notification";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Fomogram",
@@ -13,11 +14,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userId = cookies().get("userId");
+
   return (
     <html lang="en">
       <body>
         <AuthProvider>
-          <SocketProvider>
+          <SocketProvider userId={userId?.value}>
             {children}
 
             <footer className="hidden lg:block text-center py-4 border-t">

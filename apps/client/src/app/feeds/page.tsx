@@ -3,8 +3,6 @@
 import Navbar from "@client/components/Navbar";
 import { Post, Skeleton } from "@client/components/Post";
 import { useFetch } from "@client/hooks/useFetch";
-import { SocketContext } from "@client/providers/notification";
-import { useContext, useEffect } from "react";
 
 export interface Post {
   id: number;
@@ -23,14 +21,6 @@ export interface User {
 }
 
 export default function Home() {
-  const socket = useContext(SocketContext);
-
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("connected!!!");
-    });
-  }, []);
-
   const { data: posts, isLoading } = useFetch<Post[]>({
     endpoint: "/post/allposts",
   });
