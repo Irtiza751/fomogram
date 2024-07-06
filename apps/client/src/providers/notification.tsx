@@ -10,10 +10,9 @@ export const SocketContext = createContext({});
 export function SocketProvider({ children, userId }: SocketProps) {
   useEffect(() => {
     if (userId) {
-      console.log({ userId: +window.atob(userId) });
       const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || "", {
         query: {
-          userId,
+          userId: +window.atob(userId),
         },
       });
 

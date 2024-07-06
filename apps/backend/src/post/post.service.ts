@@ -32,7 +32,7 @@ export class PostService {
     /**
      * @todo Fetch posts of followings & followers
      */
-    console.log(userId);
+    // console.log(userId);
     return await this.prisma.post.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
