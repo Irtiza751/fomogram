@@ -81,9 +81,9 @@ export class PostService {
         },
       });
 
-      // this.notifyGate.sendNotification({
-      //   msg: 'New notification',
-      // });
+      this.notifyGate.sendNotification(likedPost.userId, {
+        msg: 'New notification',
+      });
       return result;
     } catch (error) {
       throw new BadRequestException('Bad request');

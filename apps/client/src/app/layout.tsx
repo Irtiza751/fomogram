@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { NavLinks } from "@client/components/NavLinks";
 import { AuthProvider } from "@client/providers/auth";
-import { SocketProvider, socket } from "@client/providers/notification";
+import { SocketProvider } from "@client/providers/notification";
 
 export const metadata: Metadata = {
   title: "Fomogram",
