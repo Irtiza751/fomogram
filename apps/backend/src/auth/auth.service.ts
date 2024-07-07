@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   async logout(userId: number) {
-    return await this.client.del(`${userId}`);
+    return await this.client.del(`session:${userId}`);
   }
 
   async sendResetMail({ email }: { email: string }) {
