@@ -60,24 +60,20 @@ export class PostService {
       const result = await this.prisma.likes.create({
         data: post,
       });
+
       const likedPost = await this.prisma.post.findUnique({
         where: {
           id: result.postId,
         },
       });
 
-      /**
-       * @TODO
-       * 1. add the notification in the database
-       * 2. push the notification to the intended user
-       * 3. fetch all notifications on the activity page from client.
-       */
       await this.prisma.notifications.create({
         data: {
           type: 'liked',
           postId: result.postId,
           producerId: result.userId,
           receiverId: likedPost.userId,
+          message: 'Liked your post',
         },
       });
 

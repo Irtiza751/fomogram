@@ -13,13 +13,13 @@ type NewFollower = {
   type: "new_follower";
 };
 
+type LikePost = {
+  type: "like_post";
+};
+
 type NewPost = {
   type: "new_post";
   content: string;
-};
-
-type LikePost = {
-  type: "like_post";
 };
 
 type CommentPost = {
@@ -45,16 +45,12 @@ export function ActivityCard(props: Props) {
             <p className="font-semibold">{username}</p>
           </Link>
           <p>{message}</p>
-          {type === "comment_post" && (
-            <p className="text-stone-500">{props.comment}</p>
-          )}
-          {type === "new_post" && (
-            <p className="text-stone-500">{props.content}</p>
-          )}
+          <div className="pt-1">
+            {type === "comment_post" && <p>{props.comment}</p>}
+            {type === "new_post" && <p>{props.content}</p>}
+          </div>
         </div>
-        {type === "new_follower" ? (
-          <Button variant="outline">Follow back</Button>
-        ) : null}
+        <Button variant="outline">Follow back</Button>
       </div>
     </div>
   );
