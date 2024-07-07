@@ -7,7 +7,7 @@ import { RedisService } from './redis/redis.service';
 import { PostModule } from './post/post.module';
 import { EmailModule } from './email/email.module';
 import { UserModule } from './user/user.module';
-import { NotificationsModule } from './notifications/notifications.module';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     PostModule,
     EmailModule,
     UserModule,
-    NotificationsModule,
+    SocketModule,
   ],
   controllers: [AppController],
   providers: [AppService, RedisService],

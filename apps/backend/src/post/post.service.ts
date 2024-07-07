@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { NotificationsGateway } from 'src/notifications/notifications.gateway';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { SocketGateway } from 'src/socket/socket.gateway';
 
 export interface Post {
   userId: number;
@@ -14,7 +14,7 @@ export class PostService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
-    private readonly notifyGate: NotificationsGateway,
+    private readonly socket: SocketGateway,
   ) {}
 
   async create(post: Post, file?: Express.Multer.File) {
@@ -81,7 +81,7 @@ export class PostService {
         },
       });
 
-      this.notifyGate.sendNotification(likedPost.userId, {
+      this.socket.sendNotification(likedPost.userId, {
         msg: 'New notification',
       });
       return result;

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { NotificationsGateway } from './notifications.gateway';
+import { SocketGateway } from './socket.gateway';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  providers: [NotificationsGateway],
+  providers: [SocketGateway],
   imports: [PrismaModule],
 })
-export class NotificationsModule {}
+export class SocketModule {}

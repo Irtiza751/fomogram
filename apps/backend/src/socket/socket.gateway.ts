@@ -14,9 +14,7 @@ type NotificationData = string | Array<any> | Record<string, any>;
     origin: '*',
   },
 })
-export class NotificationsGateway
-  implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
