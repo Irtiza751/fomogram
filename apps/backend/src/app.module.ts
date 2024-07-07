@@ -8,6 +8,7 @@ import { PostModule } from './post/post.module';
 import { EmailModule } from './email/email.module';
 import { UserModule } from './user/user.module';
 import { SocketModule } from './socket/socket.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { SocketModule } from './socket/socket.module';
     EmailModule,
     UserModule,
     SocketModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService, RedisService],

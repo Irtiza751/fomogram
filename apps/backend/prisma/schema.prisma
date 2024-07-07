@@ -75,9 +75,9 @@ model Followers {
 }
 
 model Notifications {
-  id      Int              @id @default(autoincrement())
-  is_read Boolean          @default(false)
-  type    NotificationType
+  id     Int              @id @default(autoincrement())
+  isRead Boolean          @default(false)
+  type   NotificationType
 
   receiverId Int
   producerId Int
@@ -85,13 +85,15 @@ model Notifications {
   postId    Int?
   commentId Int?
 
-  created_at DateTime @default(now())
+  createdAt DateTime @default(now())
 
   receiver User @relation("receiver", fields: [receiverId], references: [id])
   producer User @relation("producer", fields: [producerId], references: [id])
 
   post    Post?    @relation(fields: [postId], references: [id])
   comment Comment? @relation(fields: [commentId], references: [id])
+
+  message String?
 }
 
 enum NotificationType {
