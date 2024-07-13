@@ -13,9 +13,9 @@ import { CreateUserDTO } from './dtos/create-user.dto';
 import { LoginDto } from './dtos/login-dto';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
-import { RequestObj } from 'src/post/post.controller';
 import { ResetDto } from './dtos/reset.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { RequestPayload } from 'src/utils/types';
 
 @Controller('auth')
 export class AuthController {
@@ -52,7 +52,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('/logout')
   logout(
-    @Request() req: RequestObj,
+    @Request() req: RequestPayload,
     @Res({ passthrough: true }) res: Response,
   ) {
     const userId = req.user.id;

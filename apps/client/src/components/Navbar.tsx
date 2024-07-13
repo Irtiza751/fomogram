@@ -14,10 +14,9 @@ export default function Navbar() {
   const onLogout = async () => {
     try {
       setLoading(true);
-      console.log("logging out...");
       const { data } = await fomo.get("/auth/logout");
       if (data) {
-        router.replace("/login");
+        router.push("/login");
       }
     } catch (error) {
       console.log(error);

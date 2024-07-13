@@ -6,10 +6,16 @@ type Config<T> = {
   endpoint: string;
   onSuccess?: (res: T) => void;
   onError?: (error: AxiosError<any>) => void;
+  enable?: boolean;
 };
 
 export function useFetch<T = {}>(config: Config<T>) {
-  const { endpoint, onSuccess = () => {}, onError = () => {} } = config;
+  const {
+    endpoint,
+    onSuccess = () => {},
+    onError = () => {},
+    enable = true,
+  } = config;
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<T>();
 
@@ -27,8 +33,8 @@ export function useFetch<T = {}>(config: Config<T>) {
   };
 
   useEffect(() => {
-    fetch();
-  }, []);
+    if (enable) fetch();
+  }, [enable]);
 
   return { isLoading, data, fetch } as const;
 }

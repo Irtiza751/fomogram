@@ -55,7 +55,8 @@ export class AuthService {
         secret: process.env.REFRESH_SECRET,
         expiresIn: '1w',
       });
-      const res = await this.client.set(`${user.id}`, refreshToken);
+      const res = await this.client.set(`session:${user.id}`, refreshToken);
+      await this.client.expire(`session:${user.id}`, 1000);
       const userId = this.encode(String(user.id));
       const { username, email, image } = user;
       return { token, res, userId, username, email, image };
@@ -64,7 +65,7 @@ export class AuthService {
   }
 
   async logout(userId: number) {
-    return await this.client.del(`${userId}`);
+    return await this.client.del(`session:${userId}`);
   }
 
   async sendResetMail({ email }: { email: string }) {

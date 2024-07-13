@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { SocketGateway } from 'src/socket/socket.gateway';
 
 export interface Post {
   userId: number;
@@ -13,6 +14,7 @@ export class PostService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
+    private readonly socket: SocketGateway,
   ) {}
 
   async create(post: Post, file?: Express.Multer.File) {
@@ -30,7 +32,7 @@ export class PostService {
     /**
      * @todo Fetch posts of followings & followers
      */
-    console.log(userId);
+    // console.log(userId);
     return await this.prisma.post.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
@@ -54,9 +56,34 @@ export class PostService {
     }
 
     // if the like doesn't exist for the given post then create it.
-    return await this.prisma.likes.create({
-      data: post,
-    });
+    try {
+      const result = await this.prisma.likes.create({
+        data: post,
+      });
+
+      const likedPost = await this.prisma.post.findUnique({
+        where: {
+          id: result.postId,
+        },
+      });
+
+      await this.prisma.notifications.create({
+        data: {
+          type: 'liked',
+          postId: result.postId,
+          producerId: result.userId,
+          receiverId: likedPost.userId,
+          message: 'Liked your post',
+        },
+      });
+
+      this.socket.sendNotification(likedPost.userId, {
+        msg: 'New notification',
+      });
+      return result;
+    } catch (error) {
+      throw new BadRequestException('Bad request');
+    }
   }
 
   async findMyPosts(userId: number) {

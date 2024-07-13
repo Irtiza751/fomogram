@@ -3,6 +3,9 @@
 import Navbar from "@client/components/Navbar";
 import { Post, Skeleton } from "@client/components/Post";
 import { useFetch } from "@client/hooks/useFetch";
+import { Cookies } from "@client/lib/Cookies";
+import { SocketContext } from "@client/providers/notification";
+import { useContext, useEffect } from "react";
 
 export interface Post {
   id: number;
@@ -20,11 +23,16 @@ export interface User {
   username: string;
 }
 
-export default function Home() {
-  console.log(`Home page is loading...!`);
+export default function Feeds() {
+  const socket = useContext(SocketContext);
   const { data: posts, isLoading } = useFetch<Post[]>({
     endpoint: "/post/allposts",
   });
+
+  useEffect(() => {
+    const encodedUserId = Cookies.get("userId");
+    socket?.connect(encodedUserId);
+  }, []);
 
   return (
     <>

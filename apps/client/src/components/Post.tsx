@@ -14,8 +14,8 @@ export function Post({ post }: { post: PostInterface }) {
   const [like, setLike] = useState(Boolean(isLiked));
   const { post: request } = useRequest({
     endpoint: "/post/like",
-    onSuccess(data) {
-      console.log(data);
+    onSuccess() {
+      // console.log(data);
     },
     onError() {
       setLike(false);
