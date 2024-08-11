@@ -13,6 +13,8 @@ export function middleware(req: NextRequest) {
   const token = req.cookies.get("sessionToken")?.value;
   const pathname = req.nextUrl.pathname;
 
+  console.log({ pathname });
+
   if (token && protectedRoutes.includes(pathname)) {
     return NextResponse.next();
   }

@@ -21,4 +21,4 @@ export const links = [
     path: "/profile/Muhammad Irtiza",
     icon: <User />,
   },
-];
+] as const;

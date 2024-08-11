@@ -12,9 +12,9 @@ import {
 import { UserService } from './user.service';
 import { FollowDto } from './dtos/follow.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { RequestObj } from 'src/post/post.controller';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { RequestPayload } from 'src/utils/types';
 
 @Controller('user')
 @UseGuards(AuthGuard)
@@ -22,7 +22,7 @@ export class UserController {
   constructor(private readonly userSrv: UserService) {}
 
   @Get('/search')
-  search(@Query('search') search: string, @Request() req: RequestObj) {
+  search(@Query('search') search: string, @Request() req: RequestPayload) {
     return this.userSrv.searchUser(search, req.user.id);
   }
 
@@ -32,14 +32,14 @@ export class UserController {
   }
 
   @Get('/profile')
-  profile(@Request() req: RequestObj) {
+  profile(@Request() req: RequestPayload) {
     return this.userSrv.userProfile(req.user.id);
   }
 
   @Post('/update')
   @UseInterceptors(FileInterceptor('image'))
   update(
-    @Request() req: RequestObj,
+    @Request() req: RequestPayload,
     @Body() profile: UpdateUserDto,
     @UploadedFile() image: Express.Multer.File,
   ) {
