@@ -5,17 +5,19 @@ import { Cookies } from "@client/lib/Cookies";
 import { useState } from "react";
 import { useRequest } from "@client/hooks/useRequest";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function Post({ post }: { post: PostInterface }) {
   const encodedUserId = Cookies.get("userId");
   const userId = +window.atob(encodedUserId);
+  const router = useRouter();
 
   const isLiked = post.likes.find((like) => like.userId === userId);
   const [like, setLike] = useState(Boolean(isLiked));
   const { post: request } = useRequest({
     endpoint: "/post/like",
-    onSuccess(data) {
-      console.log(data);
+    onSuccess() {
+      // console.log(data);
     },
     onError() {
       setLike(false);
@@ -39,7 +41,10 @@ export function Post({ post }: { post: PostInterface }) {
         />
       </div>
       <figure className={`col-start-2 col-span-full space-y-2`}>
-        <Link href={`/profile/${post.user.username}`}>
+        <Link
+          href={`/profile/${post.user.username}`}
+          className="hover:underline"
+        >
           <span className="font-bold">{post.user.username}</span>
         </Link>
         {/* content */}
@@ -64,7 +69,10 @@ export function Post({ post }: { post: PostInterface }) {
           >
             <Heart size={20} fill={like ? "#dc2626" : "none"} />
           </button>
-          <button title="Comment">
+          <button
+            title="Comment"
+            onClick={() => router.push("/comments/12312")}
+          >
             <MessageCircle size={20} />
           </button>
           <button title="Repost">

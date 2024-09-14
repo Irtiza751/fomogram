@@ -13,14 +13,7 @@ import { PostService } from './post.service';
 import { PostDto } from './dtos/post.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { LikePostDto } from './dtos/like-post.dto';
-
-export interface RequestObj {
-  user: {
-    id: number;
-    iat: number;
-    exp: number;
-  };
-}
+import { RequestPayload } from 'src/utils/types';
 
 @Controller('post')
 export class PostController {
@@ -31,7 +24,7 @@ export class PostController {
   @UseInterceptors(FileInterceptor('image'))
   createPost(
     @UploadedFile() file: Express.Multer.File,
-    @Request() req: RequestObj,
+    @Request() req: RequestPayload,
     @Body() body: PostDto,
   ) {
     const { id: userId } = req.user;
@@ -41,7 +34,7 @@ export class PostController {
 
   @UseGuards(AuthGuard)
   @Get('/allposts')
-  allPost(@Request() req: RequestObj) {
+  allPost(@Request() req: RequestPayload) {
     const { id } = req.user;
     return this.post.findAll(id);
   }
@@ -53,7 +46,7 @@ export class PostController {
 
   @UseGuards(AuthGuard)
   @Get('/myposts')
-  myPosts(@Request() req: RequestObj) {
+  myPosts(@Request() req: RequestPayload) {
     const { id } = req.user;
     return this.post.findMyPosts(id);
   }
