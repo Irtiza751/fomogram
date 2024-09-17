@@ -21,19 +21,19 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private connectedUsers: Map<number, Socket> = new Map();
 
   handleConnection(client: Socket) {
-    const clientId = parseInt(client.handshake.query.userId as string, 10);
-    console.log({ clientId });
-    if (clientId) {
-      this.connectedUsers.set(clientId, client);
-      console.log(`User connected: ${clientId}`);
+    const userId = parseInt(client.handshake.query.userId as string, 10);
+    console.log({ userId });
+    if (userId) {
+      this.connectedUsers.set(userId, client);
+      console.log(`User connected: ${userId}`);
     }
   }
 
   handleDisconnect(client: Socket) {
-    const clientId = parseInt(client.handshake.query.userId as string, 10);
-    if (clientId) {
-      this.connectedUsers.delete(clientId);
-      console.log(`User disconnected: ${clientId}`);
+    const userId = parseInt(client.handshake.query.userId as string, 10);
+    if (userId) {
+      this.connectedUsers.delete(userId);
+      console.log(`User disconnected: ${userId}`);
     }
   }
 
