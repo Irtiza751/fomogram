@@ -12,6 +12,7 @@ import {
   AuthContextType,
   LoginResponse,
 } from "@client/providers/auth";
+import Image from "next/image";
 
 const loginFormSchema = object({
   email: string().email("Invalid email").required("Email is required"),
@@ -111,6 +112,10 @@ export default function Login() {
           Register
         </Link>
       </p>
+      <Button variant="outline" type="button" className="w-full space-x-2">
+        <Image src="/imgs/google.svg" width={18} height={18} alt="Google" />
+        <span>Continue with google</span>
+      </Button>
     </form>
   );
 }
