@@ -1,0 +1,39 @@
+services:
+  client:
+    build:
+      context: ./apps/client  # Path to the client Dockerfile
+      dockerfile: Dockerfile     # Dockerfile for client service
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./apps/backend   # Path to the backend Dockerfile
+      dockerfile: Dockerfile     # Dockerfile for backend service
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
