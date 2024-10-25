@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // https://ui-avatars.com/api/
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
