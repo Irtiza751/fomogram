@@ -18,7 +18,7 @@ cd fomogram
 ```
 The project is divided into 2 main modules `packages` & `apps` and in the apps folder there are currently 2 apps Backend & client (Web app) in order to run any module separately you can use this command.
 ```
-pnpm run dev --filter=”<module_name">
+pnpm run dev --filter=<module_name>
 ```
 Or if you want to run the whole project simply run
 ```
